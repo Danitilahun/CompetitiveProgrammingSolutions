@@ -1,0 +1,8 @@
+        row=len(matrix)
+        column=len(matrix[0])
+        answer=[[0 for i in range(row)] for i in range(column)]
+       
+        for i in range(row):
+            for j in range(column):
+                answer[j][i]= matrix[i][j]
+        return answer
