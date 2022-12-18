@@ -7,14 +7,13 @@ class Solution:
         for i in range(row):
             for j in range(column):
                 prefix[i+1][j+1]+=grid[i][j]+prefix[i][j+1]+prefix[i+1][j]-prefix[i][j]
-
+    
         for i in range(row-2):
             for j in range(column-2):
-                x=prefix[i+3][j+3]
-                l=prefix[i+3][j]
-                r=prefix[i][j+3]
-                m=grid[i+1][j]
-                n=grid[i+1][j+2]
-                cur=x-l-r-m-n+prefix[i][j]
+                #  from prefix
+                pre=prefix[i+3][j+3]-prefix[i+3][j] -prefix[i][j+3] + prefix[i][j]
+                # from grid
+                gri=grid[i+1][j]+grid[i+1][j+2]
+                cur= pre-gri
                 maximum_sum=max(maximum_sum,cur)
         return maximum_sum
