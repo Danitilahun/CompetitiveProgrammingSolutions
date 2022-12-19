@@ -1,0 +1,19 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+T=int(input())
+for i in range(T):
+    n=int(input())
+    nums=list(map(int,input().split()))
+    left=0 ; right=n-1
+    stack=[]
+    while left<=right:
+        candidate=0
+        if nums[left]>nums[right]: 
+            candidate=nums[left] 
+            left+=1
+        else: 
+            candidate=nums[right]
+            right-=1
+        if not stack: stack.append(candidate)
+        elif candidate<=stack[-1]:stack.append(candidate)
+        else: print("No") ; break
+    else: print("Yes")
