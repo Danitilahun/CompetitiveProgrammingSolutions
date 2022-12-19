@@ -1,0 +1,8 @@
+def swap_case(s):
+    new=""
+    for i in s:
+        if 65<=ord(i)<=90:
+            new+= chr(ord(i)+32)
+        elif 97<=ord(i)<=122: new+=chr(ord(i)-32)
+        else: new+=i
+    return new
