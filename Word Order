@@ -1,0 +1,8 @@
+n=int(input())
+element={}
+for i in range(n):
+    word=input()
+    element[word]=1+element.get(word,0)
+print(len(element))
+for j in element:
+    print(element[j],end=" ")
