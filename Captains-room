@@ -1,0 +1,7 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+import collections
+K=int(input())
+nums=list(map(int,input().split()))
+counter=collections.Counter(nums)
+for i in counter:
+    if counter[i]!=K: print(i) ; break
