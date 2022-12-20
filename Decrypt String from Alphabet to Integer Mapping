@@ -1,0 +1,17 @@
+class Solution:
+    def freqAlphabets(self, s: str) -> str:
+        element=[]
+        stack=[]
+        for letter in s:
+            if letter!="#":
+                stack.append(letter)
+            else:
+                num=""
+                for i in range(2): 
+                    num += stack.pop()
+                stack.append(int(num[::-1]))     
+        ans=""
+        for i in stack: 
+            ans+=chr((int(i)+96))
+        return ans
+        
