@@ -1,0 +1,10 @@
+class Solution:
+    def average(self, salary: List[int]) -> float:
+        minimum=min(salary)
+        maximum=max(salary)
+        number=len(salary)-2
+        add=0
+        for sal in salary:
+            if sal!=minimum and sal!=maximum:
+                add+=sal
+        return add/number
