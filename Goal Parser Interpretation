@@ -1,0 +1,9 @@
+class Solution:
+    def interpret(self, command: str) -> str:
+        ans=''
+        for c in range(len(command)):
+            if command[c] == 'G':ans+=command[c]
+            if command[c]==")": 
+                if command[c-1]=="(": ans+='o'
+                else:ans+='al'
+        return ans
