@@ -1,0 +1,13 @@
+class Solution:
+    def numIdenticalPairs(self, nums: List[int]) -> int:
+        from math import factorial
+        set1=set(nums)
+        dict1={}
+        count=0
+        for i in set1:
+            dict1[i]=nums.count(i)
+        for i in dict1.values():
+            if i>1:
+                base= factorial(i-2)*2
+                count+=(factorial(i)//base)
+        return count
