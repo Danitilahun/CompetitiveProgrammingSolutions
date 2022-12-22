@@ -1,0 +1,22 @@
+class Solution:
+    def countPairs(self, deliciousness: List[int]) -> int:
+        mod=10**9 +7 
+        count=Counter(deliciousness)
+        maximum=max(deliciousness)
+        maxi= int(log2(maximum)) + 1
+        answer=0
+        print(count,maxi)
+        for i in count:
+            for j in range(maxi+1):
+                dif=2**j-i
+                if dif in count and count[dif]: 
+                    # print(dif)
+                    if dif==i and count[dif]<=1: continue
+                    elif dif==i and count[dif]>1: 
+                        deno= factorial(count[i]-2)*factorial(2)
+                        answer += (factorial(count[i])// deno)
+                    else: 
+                        answer+=(count[dif]*count[i])
+            count[i]=0
+            answer%=mod
+        return answer%mod
