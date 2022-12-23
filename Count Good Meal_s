@@ -1,0 +1,34 @@
+class Solution:
+    def countPairs(self, deliciousness: List[int]) -> int:
+        mod=10**9 +7 
+        # Getting a count of all foods in a given 
+        foods_frequency=Counter(deliciousness)
+        
+        # Finding maximum value we have in the given
+        maximum_number=max(deliciousness)
+        
+        # Finding Maximum power for two we will have from given array
+        maximum_2_power= int(log2(maximum_number)) + 1
+        
+        answer=0
+        for current_food in foods_frequency:
+        
+            for current_power in range(maximum_2_power+1):
+                # Find the difference of the current number with 2 power numbers 
+                difference = (2**(current_power)) -current_food
+                
+                if difference in foods_frequency and foods_frequency[difference]: 
+                    current_food_freq=foods_frequency[current_food]
+                    
+                    if difference==current_food:
+                        # taking Combination by selecting two element 
+                        # at once C(n,2) = (n*(n-1))//2
+                        combination=(current_food_freq*(current_food_freq-1))//2 
+                        answer += combination
+                        
+                    else:
+                        diffent_food_freq=foods_frequency[difference]
+                        answer+=(current_food_freq*diffent_food_freq)
+                        
+            foods_frequency[current_food]=0
+        return answer%mod
