@@ -1,0 +1,10 @@
+A=set(map(int,input().split()))
+n=int(input())
+answer=True
+for i in range(n):
+    newSet=set(map(int,input().split()))
+    forward=set(A)-set(newSet)
+    backward=set(newSet)-set(A)
+    if not forward: answer=False ; break
+    elif forward and backward:answer=False ; break
+print(answer)
