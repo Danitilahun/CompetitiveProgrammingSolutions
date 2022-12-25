@@ -1,0 +1,10 @@
+def wrap(string, max_width):
+    length=len(string)
+    index=0
+    answer=""
+    while index<length:
+        if index+4<length:
+            answer+=string[index:index+4] + "\n"
+        else:answer+=string[index:]
+        index+=4
+    return answer
