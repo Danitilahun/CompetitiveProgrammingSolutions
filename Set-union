@@ -1,0 +1,7 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+english_subscriber=int(input())
+english_subscriber_set=set(map(int,input().split()))
+france_subscriber=int(input())
+france_subscriber_set=set(map(int,input().split()))
+unio_n=english_subscriber_set.union(france_subscriber_set)
+print(len(unio_n))
