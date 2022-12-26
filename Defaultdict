@@ -1,0 +1,21 @@
+from collections import defaultdict
+n,m=input().split()
+n=int(n)
+m=int(m)
+A=defaultdict(list)
+B=[]
+index1=0
+while index1<n:
+    char=input().split()
+    for ch in char:
+        A[ch].append(index1+1)
+        index1+=1
+# print(A)
+for index2 in range(m):
+    B.append(input())
+
+for char in B:
+    if char in A: 
+        print(*A[char])
+    else: print(-1)
+    
