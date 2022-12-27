@@ -1,0 +1,13 @@
+class Solution:
+    def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
+        domain_frequency=defaultdict(int)
+        for domain in cpdomains:
+            visited,domain_name=domain.split()
+            domain_path=domain_name.split(".")
+            for index in range(len(domain_path)):
+                key=".".join(domain_path[index:])
+                domain_frequency[key]+=int(visited)
+        answer=[]
+        for value in domain_frequency:
+            answer.append(f"{str(domain_frequency[value])} {value}")
+        return answer
