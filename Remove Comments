@@ -1,0 +1,21 @@
+class Solution:
+    def findDuplicate(self, paths: List[str]) -> List[List[str]]:
+        mapp=defaultdict(list)
+        for path in paths:
+            path=path.split()
+            for value in range(1,len(path)):
+                data=""
+                ind=0
+                for index in range(len(path[value])-2,-1,-1):
+                    if path[value][index]!="(":
+                        data+=path[value][index]
+                    else: 
+                        ind=index
+                        break
+                add= path[0]+"/"+ path[value][:ind]
+                mapp[data].append(add)
+        answer=[]
+        for value in mapp:
+            if len(mapp[value])>1:
+                answer.append(mapp[value])
+        return answer
