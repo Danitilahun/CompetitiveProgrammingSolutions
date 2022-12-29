@@ -1,0 +1,18 @@
+t=int(input())
+for index in range(t):
+    n=int(input())
+    nums=list(map(int,input().split()))
+    code=input()
+    mapping={}
+    for ind in range(n):
+        num=nums[ind]
+        if num not in mapping:
+            mapping[num]=code[ind]
+        else:
+            if mapping[num]==code[ind]: 
+                continue
+            else: 
+                print("NO")
+                break
+    else:
+        print("YES")
