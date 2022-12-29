@@ -1,0 +1,26 @@
+mapping={"S":1 , "M":2 , "L":3 , "X": 4}
+for _ in range(int(input())):
+    a,b=input().split()
+    suma=0
+    sumb=0
+    inda=len(a)-1
+    indb=len(b)-1
+    sign=1
+    while inda>=0:
+        if a[len(a)-1]=="S":
+            sign=-1
+        suma+= sign*mapping[a[inda]]
+        inda-=1
+    sign=1
+    while indb>=0:
+        if b[len(b)-1]=="S":
+            sign=-1
+        sumb+= sign*mapping[b[indb]]
+        indb-=1
+    if suma>sumb:
+        print(">")
+    elif sumb>suma:
+        print("<")
+    else:
+        print("=")
+    
