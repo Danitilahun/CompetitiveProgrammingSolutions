@@ -1,0 +1,13 @@
+from collections import Counter
+t=int(input())
+for _ in range(t):
+    n,c=list(map(int,input().split()))
+    orbit_planet_map=Counter(list(map(int,input().split())))
+    minimum_cost=0
+    
+    for orbit in orbit_planet_map:
+        if orbit_planet_map[orbit]>c:
+            minimum_cost+=c
+        else:
+            minimum_cost+= orbit_planet_map[orbit]
+    print(minimum_cost)
