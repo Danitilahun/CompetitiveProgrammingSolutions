@@ -1,0 +1,39 @@
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        rows=len(mat)
+        cols=len(mat[0])
+        temp=[]
+        check= lambda row,col : 0 <= row < rows and 0 <= col < cols
+        dec=0
+        for col in range(cols):
+            ans=[]
+            row=0
+            coll=col
+            while check(row,coll):
+                ans.append(mat[row][coll])
+                row+=1
+                coll-=1
+            temp.append(ans)
+            
+        for row in range(1,rows):
+            ans=[]
+            roww=row
+            col=cols-1
+            while check(roww,col):
+                ans.append(mat[roww][col])
+                roww+=1
+                col-=1
+            temp.append(ans)
+        answer=[]
+        backward=True
+        for ele in temp:
+            
+            if backward:
+                ele.reverse()
+                answer.extend(ele)
+                backward=False
+            else:
+                answer.extend(ele)
+                backward=True
+        return answer
+            
