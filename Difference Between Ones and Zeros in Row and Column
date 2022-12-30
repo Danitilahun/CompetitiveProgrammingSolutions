@@ -1,0 +1,31 @@
+class Solution:
+    def onesMinusZeros(self, grid: List[List[int]]) -> List[List[int]]:
+        ones_in_row=[]
+        ones_in_col=[]
+        rows=len(grid)
+        cols=len(grid[0])
+        for row in range(rows):
+            count=0
+            for col in range(cols):
+                if grid[row][col]==1:
+                    count+=1
+            ones_in_row.append(count)
+        
+        for col in range(cols):
+            count=0
+            for row in range(rows):
+                if grid[row][col]==1:
+                    count+=1
+            ones_in_col.append(count)
+        diff=[]
+        for row in range(rows):
+            temp=[]
+            for col in range(cols):
+                temp.append(0)
+            diff.append(temp)
+        
+        for row in range(rows):
+            for col in range(cols):
+                diff[row][col]= (ones_in_row[row]+ones_in_col[col])*2 - rows-cols
+        return diff
+                
