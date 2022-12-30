@@ -1,0 +1,18 @@
+class Solution:
+    def sumEvenAfterQueries(self, nums: List[int], queries: List[List[int]]) -> List[int]:
+        even_sum=0
+        for num in nums:
+            if not num%2:
+                even_sum+=num
+                
+        answer=[]
+        
+        for val,index in queries:
+            if not nums[index]%2:
+                even_sum-=nums[index]
+            nums[index]=nums[index]+val
+            if not nums[index]%2: 
+                even_sum+=nums[index]
+            answer.append(even_sum)
+        
+        return answer
