@@ -1,0 +1,13 @@
+class Solution:
+    def addSpaces(self, s: str, spaces: List[int]) -> str:
+        # to make searching time constant
+        spaces=set(spaces)
+        # the variable to keep my answer
+        answer=""
+        length=len(s)
+        for index in range(length):
+            if index in spaces:
+                answer+= " " + s[index]
+                continue
+            answer += s[index]
+        return answer
