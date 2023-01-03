@@ -1,0 +1,14 @@
+        seen={}
+        for item in grid:
+            item=tuple(item)
+            seen[item]=1+seen.get(item,0)
+        rows=len(grid)
+        cols=rows
+        answer=0
+        for col in range(cols):
+            check=[]
+            for row in range(rows):
+                check.append(grid[row][col])
+            if tuple(check) in seen:
+                answer+=seen[tuple(check)]
+        return answer
