@@ -1,0 +1,19 @@
+class Solution:
+    def printVertically(self, s: str) -> List[str]:
+        s=s.split()
+        rows=len(s)
+        cols=0
+        for item in s:
+            cols=max(len(item),cols)
+        answer=[]
+        for col in range(cols):
+            word=""
+            for row in range(rows):
+                if col<len(s[row]):
+                    word+=s[row][col]
+                else:
+                    word+=" "
+            word=word.rstrip()
+            answer.append(word)
+        return answer
+
