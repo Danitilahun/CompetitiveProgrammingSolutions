@@ -1,0 +1,8 @@
+class Solution:
+    def arrayChange(self, nums: List[int], operations: List[List[int]]) -> List[int]:
+        mapping={nums[index]:index for index in range(len(nums))}
+        for first,second in operations:
+            ind=mapping[first]
+            nums[ind]=second
+            mapping[second]=ind
+        return nums
