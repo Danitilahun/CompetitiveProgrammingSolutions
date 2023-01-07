@@ -1,0 +1,14 @@
+class Solution:
+    def rearrangeArray(self, nums: List[int]) -> List[int]:
+        length=len(nums)
+        answer=[0]*length
+        positive=0
+        negative=1
+        for i in range(length):
+            if nums[i]>0:
+                answer[positive]=nums[i]
+                positive+=2
+            else:
+                answer[negative]=nums[i]
+                negative+=2
+        return answer
