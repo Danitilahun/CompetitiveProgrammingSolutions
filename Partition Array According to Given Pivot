@@ -1,0 +1,24 @@
+class Solution:
+    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
+        # count element greater than pivot
+        count_greater=0
+        for num in nums:
+            if num>pivot:
+                count_greater+=1
+        # Create answer array 
+        length_nums=len(nums)
+        arranged=[0]*length_nums
+        left=0
+        right=length_nums-count_greater
+        mid=right-1
+        for num in nums:
+            if num<pivot:
+                arranged[left]=num
+                left+=1
+            elif num>pivot:
+                arranged[right]=num
+                right+=1
+            else:
+                arranged[mid]=num
+                mid-=1
+        return arranged
