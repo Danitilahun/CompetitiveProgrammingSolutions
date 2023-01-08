@@ -1,0 +1,11 @@
+class Solution:
+    def minOperations(self, boxes: str) -> List[int]:
+        length_box=len(boxes)
+        minimum_operation=[0]*length_box
+        for index in range(length_box):
+            count=0
+            for ind in range(length_box):
+                if boxes[ind]=="1":
+                    count+= abs(ind-index)
+            minimum_operation[index]=count
+        return minimum_operation
