@@ -1,0 +1,7 @@
+class Solution:
+    def sumOfThree(self, num: int) -> List[int]:
+        number=num//3 -1
+        answer=[number,number+1,number+2]
+        if sum(answer)==num:
+            return answer
+        return []
