@@ -1,0 +1,11 @@
+class Solution:
+    def findTheWinner(self, n: int, k: int) -> int:
+        friend=[i for i in range(1,n+1)]
+        while len(friend)!=1:
+            ind=k%len(friend)
+            if ind>0:
+                friend=friend[ind:]+friend[:ind-1]
+            else:
+                friend=friend[:len(friend)-1]
+        return friend[0]
+        
