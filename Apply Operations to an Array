@@ -1,0 +1,16 @@
+class Solution:
+    def applyOperations(self, nums: List[int]) -> List[int]:
+        length_nums=len(nums)
+        for ind in range(length_nums-1):
+            if nums[ind]==nums[ind+1]:
+                nums[ind]*=2
+                nums[ind+1]=0
+        # apply the logic of move zeros 
+        left=0
+        for right in range(1,len(nums)):
+            if nums[left]==0 and nums[right]!=0:
+                nums[left],nums[right]=nums[right],nums[left]
+                left+=1
+            if nums[left]!=0:
+                left+=1
+        return nums
