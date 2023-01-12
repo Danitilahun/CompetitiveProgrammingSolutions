@@ -1,0 +1,20 @@
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        row=len(matrix)
+        column=len(matrix[0])
+        # binary search on row
+
+        top=0
+        bottom= (row-1)*(column) + column-1
+        
+        while top<=bottom:
+            mid=(top+bottom)//2
+            cur_row= mid//column
+            cur_col=mid%column
+            if matrix[cur_row][cur_col]==target:
+                return True
+            elif matrix[cur_row][cur_col]>target:
+                bottom=mid-1
+            else:
+                top=mid+1
+        return False
