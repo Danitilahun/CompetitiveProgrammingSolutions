@@ -1,0 +1,20 @@
+class Solution:
+    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
+        rows=len(matrix)
+        cols=len(matrix[0])
+        def search(row,col):
+            flag=True
+            num=matrix[row][col]
+            while row+1<rows and col+1<cols:
+                if num!=matrix[row+1][col+1]:
+                    return False
+                row+=1
+                col+=1
+            return True
+
+        for row in range(rows):
+            for col in range(cols):
+                toeplitz=search(row,col)
+                if toeplitz==False:
+                    return False
+        return True
