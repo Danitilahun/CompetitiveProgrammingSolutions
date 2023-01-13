@@ -1,0 +1,24 @@
+class Solution:
+    def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
+        rows=len(mat)
+        columns=len(mat[0])
+        if rows*columns!=r*c:
+            return mat
+        new=[]
+        for row in range(r):
+            temp=[]
+            for col in range(c):
+                temp.append(0)
+            new.append(temp)
+        new_row=0
+        new_col=0
+        for row in range(rows):
+            print(new_row,new_col)
+            for col in range(columns):
+                if new_col<c:
+                    new[new_row][new_col]=mat[row][col]
+                    new_col+=1
+                    if new_col==c:
+                        new_row+=1
+                        new_col=0
+        return new
