@@ -1,0 +1,40 @@
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        
+        rows=len(matrix)
+        cols=rows
+        row=0
+        def setter(previous_row,previous_col,cur_row,cur_col,current):
+            previous_row=cur_row
+            previous_col=cur_col
+            cur_row=previous_col
+            cur_col=rows - previous_row -1
+            temp=matrix[cur_row][cur_col]
+            matrix[cur_row][cur_col]=current
+            return [previous_row,previous_col,cur_row,cur_col,temp]
+
+        while row<(rows//2):
+            col=row
+            while col < (cols-1):
+               
+                previous_row=row
+                previous_col=col
+                cur_row=previous_col
+                cur_col=rows - previous_row -1
+                current=matrix[row][col]
+                # first move
+                previous_row,previous_col,cur_row,cur_col,current =setter(previous_row,previous_col,cur_row,cur_col,current)
+                # second move
+                previous_row,previous_col,cur_row,cur_col,current=setter(previous_row,previous_col,cur_row,cur_col,current)
+                # thrid move
+                previous_row,previous_col,cur_row,cur_col,current=setter(previous_row,previous_col,cur_row,cur_col,current)
+                # forth move
+                previous_row,previous_col,cur_row,cur_col,current=setter(previous_row,previous_col,cur_row,cur_col,current)
+                previous_row,previous_col,cur_row,cur_col,current=setter(previous_row,previous_col,cur_row,cur_col,current)
+                col+=1
+            cols-=1
+            row+=1
+                
