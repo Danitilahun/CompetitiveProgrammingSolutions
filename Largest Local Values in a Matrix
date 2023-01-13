@@ -1,0 +1,24 @@
+class Solution:
+    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
+         
+        rows=len(grid)
+        columns=rows
+        answer=[]
+        def maximum(row,col):
+            maxi=0
+            for r in range(row,row+3):
+                for c in range(col,col+3):
+                    maxi=max(maxi,grid[r][c])
+            return maxi
+        for row in range(rows-2):
+            temp=[]
+            for col in range(columns-2):
+                temp.append(0)
+            answer.append(temp)
+        row=0
+        col=0
+        for row in range(rows-2):
+            for col in range(columns-2):
+              answer[row][col]=maximum(row,col) 
+        return answer
+            
