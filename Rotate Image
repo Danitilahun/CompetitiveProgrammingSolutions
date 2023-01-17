@@ -6,35 +6,24 @@ class Solution:
         
         rows=len(matrix)
         cols=rows
-        row=0
-        def setter(previous_row,previous_col,cur_row,cur_col,current):
-            previous_row=cur_row
-            previous_col=cur_col
-            cur_row=previous_col
-            cur_col=rows - previous_row -1
-            temp=matrix[cur_row][cur_col]
-            matrix[cur_row][cur_col]=current
-            return [previous_row,previous_col,cur_row,cur_col,temp]
 
-        while row<(rows//2):
+        for row in range(rows//2):
             col=row
-            while col < (cols-1):
-               
-                previous_row=row
-                previous_col=col
-                cur_row=previous_col
-                cur_col=rows - previous_row -1
-                current=matrix[row][col]
-                # first move
-                previous_row,previous_col,cur_row,cur_col,current =setter(previous_row,previous_col,cur_row,cur_col,current)
-                # second move
-                previous_row,previous_col,cur_row,cur_col,current=setter(previous_row,previous_col,cur_row,cur_col,current)
-                # thrid move
-                previous_row,previous_col,cur_row,cur_col,current=setter(previous_row,previous_col,cur_row,cur_col,current)
-                # forth move
-                previous_row,previous_col,cur_row,cur_col,current=setter(previous_row,previous_col,cur_row,cur_col,current)
-                previous_row,previous_col,cur_row,cur_col,current=setter(previous_row,previous_col,cur_row,cur_col,current)
+            while col<cols-1:
+
+                temp1=matrix[col][-1-row+rows]
+                matrix[col][-1-row+rows]=matrix[row][col]
+
+                temp2=matrix[-1-row][-1-col]
+                matrix[-1-row][-1-col]=temp1
+
+                temp3=matrix[-1-col][row]
+                matrix[-1-col][row]=temp2
+
+                matrix[row][col]=temp3
+
                 col+=1
+            
             cols-=1
-            row+=1
+        return matrix
                 
