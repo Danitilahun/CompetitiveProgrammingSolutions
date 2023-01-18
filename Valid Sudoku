@@ -1,0 +1,42 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        # check row
+        check=lambda num: 1<=int(num)<=9
+        for col in range(9):
+            seen=set()
+            for row in range(9):
+                num=board[row][col]
+                if num.isdigit() and check(num) and num not in seen:
+                    seen.add(num)
+                elif num.isdigit() and not check(num) or  num in seen:
+                    return False
+        # check col
+        for row in range(9):
+            seen=set()
+            for col in range(9):
+                num=board[row][col]
+                if num.isdigit() and check(num) and num not in seen:
+                    seen.add(num)
+                elif num.isdigit() and not check(num) or  num in seen:
+                    return False
+        # 3*3 grid
+
+        def checker(row,col):
+            seen=set()
+            for r in range(row,row+3):
+                for c in range(col,col+3):
+                    num=board[r][c]
+                    if num.isdigit() and check(num) and num not in seen:
+                        seen.add(num)
+                    elif num.isdigit() and not check(num) or  num in seen:
+                        return False
+            return True
+        row=0
+        while row<9:
+            col=0
+            while col<9:
+                if not checker(row,col):
+                    return False
+                col+=3
+            row+=3
+        return True
