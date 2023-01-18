@@ -1,0 +1,32 @@
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        rows=len(matrix)
+        cols=len(matrix[0])
+        check= lambda row,col: 0<=row<rows and 0<=col<cols
+        seen=set()
+        def set_zero(row,col):
+            for r in range(row+1,rows):
+                if matrix[r][col]:
+                    matrix[r][col]=0
+                    seen.add((r,col))
+            for r in range(row-1,-1,-1):
+                if matrix[r][col]:
+                    matrix[r][col]=0
+                    seen.add((r,col))
+            for c in range(col+1,cols):
+                if matrix[row][c]:
+                    matrix[row][c]=0
+                    seen.add((row,c))
+            for c in range(col-1,-1,-1):
+                if matrix[row][c]:
+                    matrix[row][c]=0
+                    seen.add((row,c))
+       
+        for row in range(rows):
+            for col in range(cols):
+                if matrix[row][col]==0 and (row,col) not in seen:
+                    set_zero(row,col)
+        return matrix
