@@ -1,0 +1,12 @@
+#User function Template for python3
+
+class Solution: 
+
+    def selectionSort(self, arr,n):
+        #code here
+        for index in range(n):
+            min_index=index 
+            for ind in range(index+1,n):
+                if arr[ind]<arr[min_index]:
+                    min_index=ind
+            arr[index],arr[min_index]=arr[min_index],arr[index]
