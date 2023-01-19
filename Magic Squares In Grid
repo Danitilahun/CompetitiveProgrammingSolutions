@@ -1,0 +1,40 @@
+class Solution:
+    def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
+        rows=len(grid)
+        cols=len(grid[0])
+        check=lambda num: 1<=int(num)<=9
+        def checker(row,col):
+            seen=set()
+            fulfil=True
+            for r in range(row,row+3):
+                for c in range(col,col+3):
+                    num=grid[r][c]
+                    if check(num) and num not in seen:
+                        seen.add(num)
+                    else:
+                        fulfil=False
+            if fulfil:
+                sumdiagonal=grid[row][col]+grid[row+1][col+1]+grid[row+2][col+2]
+                sumantidiagonal=grid[row][col+2]+grid[row+1][col+1]+grid[row+2][col]
+                firstrow=sum(grid[row][col:col+3])
+                secondrow=sum(grid[row+1][col:col+3])
+                thirdrow=sum(grid[row+2][col:col+3])
+                firstcol=grid[row][col] + grid[row+1][col] + grid[row+2][col]
+                secondcol=grid[row][col+1] + grid[row+1][col+1] + grid[row+2][col+1]
+                thirdcol=grid[row][col+2] + grid[row+1][col+2] + grid[row+2][col+2]
+                
+                if sumdiagonal==sumantidiagonal:
+                    if firstcol==secondcol==thirdcol==sumantidiagonal and sumdiagonal==firstrow==secondrow==thirdrow:
+                        return True
+            return False
+        answer=0
+        row=0
+        while row<rows and row+2<rows:
+            col=0
+            while col<cols and col+2<cols:
+                print(checker(row,col))
+                if checker(row,col):
+                    answer+=1
+                col+=1
+            row+=1
+        return answer
