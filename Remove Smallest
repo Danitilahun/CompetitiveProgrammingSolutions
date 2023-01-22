@@ -1,0 +1,13 @@
+for _ in range(int(input())):
+    length=int(input())
+    nums=list(map(int,input().split()))
+    nums.sort()
+    left=0
+    for index in range(1,length):
+        if nums[index]-nums[left]>1:
+            print("NO")
+            break
+        left+=1
+        # print(left)
+    else:
+        print("YES")
