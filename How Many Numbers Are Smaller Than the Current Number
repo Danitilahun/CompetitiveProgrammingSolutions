@@ -1,0 +1,15 @@
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        length=len(nums)
+        answer=[0]*length
+        check=defaultdict(list)
+        for index in range(length):
+            check[nums[index]].append(index)
+        nums.sort()
+        index=0
+        while index<length:
+            for ind in check[nums[index]]:
+                answer[ind]=index
+            index+=len(check[nums[index]])
+        return answer
+
