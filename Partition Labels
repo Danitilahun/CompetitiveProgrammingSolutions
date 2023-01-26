@@ -1,0 +1,13 @@
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        final_index={s[i]:i for i in range(len(s))}
+        maximum=0
+        pre=-1
+        answer=[0]
+        for index in range(len(s)):
+            maximum=max(final_index[s[index]],maximum)
+            if index==maximum:
+                answer.append(maximum-pre)
+                pre=maximum
+        return answer[1:]
+
