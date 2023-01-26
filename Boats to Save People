@@ -1,0 +1,15 @@
+class Solution:
+    def numRescueBoats(self, people: List[int], limit: int) -> int:
+        people.sort()
+        length=len(people)
+        left=0
+        right=length-1
+        answer=0
+        while left<right:
+            cur=people[left]+people[right]
+            if cur<=limit:
+                left+=1
+            right-=1
+            answer+=1
+        return answer+1 if left==right else answer
+        
