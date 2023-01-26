@@ -1,0 +1,13 @@
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        length=len(nums)
+        for index_outer in range(length):
+            for index_inner in range(index_outer+1,length):
+                forward_read=str(nums[index_outer])+ str(nums[index_inner])
+                backward_read=str(nums[index_inner])+str(nums[index_outer])
+                if forward_read<backward_read:
+                    nums[index_inner],nums[index_outer]=nums[index_outer],nums[index_inner]
+        answer=""
+        for num in nums:
+            answer+=str(num)
+        return str(int(answer))
