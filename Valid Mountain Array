@@ -1,0 +1,21 @@
+class Solution:
+    def validMountainArray(self, arr: List[int]) -> bool:
+        n=len(arr)
+        if n<3:
+            return False
+        stack=[-1]
+        peak_reached=False
+        for index in range(n):
+            if not peak_reached and stack[-1] < arr[index]:
+                stack.append(arr[index])
+            elif stack[-1] > arr[index] :
+                peak_reached=True
+                if stack[-2]==-1:
+                    return False
+                stack=[stack[-1]]
+                stack.append(arr[index])
+            else:
+                return False
+        return True if stack[-2]>stack[-1] else False
+    
+    
