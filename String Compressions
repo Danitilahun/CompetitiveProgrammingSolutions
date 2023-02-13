@@ -1,0 +1,17 @@
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        answer=[]
+        length=len(chars)
+        index=0
+        while index<length:
+            count=1
+            cur=index
+            while index+1<length and chars[index+1]==chars[cur]:
+                count+=1
+                index+=1
+            answer.append(chars[cur])
+            if count!=1:
+                answer.extend(str(count))
+            index+=1
+        chars[:len(answer)]=answer
+        return len(answer)
