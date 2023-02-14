@@ -1,0 +1,18 @@
+        slow=head
+        fast=head
+        while fast and fast.next:
+            slow=slow.next
+            fast=fast.next.next
+        if fast: slow=slow.next
+        newHead=None
+        while slow:
+            temp=slow.next
+            slow.next=newHead
+            newHead=slow
+            slow=temp
+        while newHead:
+            if newHead.val!=head.val:
+                return False
+            newHead=newHead.next
+            head=head.next
+        return True
