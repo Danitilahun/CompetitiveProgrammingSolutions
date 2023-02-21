@@ -1,0 +1,18 @@
+for _ in range(int(input())):
+    length=int(input())
+    array=list(map(int,input().split()))
+
+    index=0
+    maximum_sum=0
+    while index<length:
+        candidate=float("-inf")
+        if array[index]<0:
+            while index<length and array[index]<0:
+                candidate=max(candidate,array[index])
+                index+=1
+        elif array[index]>0: 
+            while index<length and array[index]>0:
+                candidate=max(candidate,array[index])
+                index+=1
+        maximum_sum+=candidate
+    print(maximum_sum)
