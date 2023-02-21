@@ -1,0 +1,18 @@
+
+for _ in range(int(input())):
+    m, n = list(map(int, input().split()))
+    matrix = []
+    for _ in range(m):
+        row=list(map(int, input().split()))
+        matrix.append(row)
+    diagonal = {}
+    antidiag = {}
+    for row in range(m):
+        for col in range(n):
+            diagonal[row+col] =matrix[row][col]+ diagonal.get(row+col, 0)
+            antidiag[row-col] = matrix[row][col] + antidiag.get(row-col, 0)
+    maximum_sum = 0
+    for row in range(m):
+        for col in range(n):
+            maximum_sum = max(maximum_sum, diagonal[row + col] + antidiag[row - col] - matrix[row][col])
+    print(maximum_sum)
