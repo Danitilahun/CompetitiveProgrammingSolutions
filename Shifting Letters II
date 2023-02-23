@@ -1,0 +1,20 @@
+class Solution:
+    def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
+        array=[0]*(len(s))
+        for start,end,direction in shifts:
+            if not direction:
+                direction=-1
+            array[start]+= direction
+            if end+1<len(s):
+                array[end+1]-= direction
+        
+        for index in range(1,len(s)):
+            array[index]+=array[index-1]
+        
+
+        answer=""
+        print(array)
+        for ind in range(len(s)):
+            asc_ii= ((ord(s[ind]) + array[ind])-97)%26 +97
+            answer+=chr(asc_ii)
+        return answer
