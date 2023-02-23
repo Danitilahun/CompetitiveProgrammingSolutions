@@ -1,0 +1,23 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+
+        maximimum_length=0
+        for asc_ii in range(65,91):
+            candidate=chr(asc_ii)
+            replace=0
+            cur_max=0
+            left=0
+            for right in range(len(s)):
+                if s[right]!=candidate:
+                    replace+=1
+                while replace>k:
+                    if s[left]!=candidate:
+                        replace-=1
+                    left+=1
+                cur_max=max(cur_max,right-left+1)
+
+            maximimum_length=max(maximimum_length,cur_max)
+            
+        return maximimum_length
+
+                
