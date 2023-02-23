@@ -1,0 +1,13 @@
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        prefix_map={0:1}
+        running_sum=0
+        subarray_count=0
+        for ind in range(len(nums)):
+            running_sum +=nums[ind]
+            difference=running_sum % k
+            if difference in prefix_map:
+                subarray_count+= prefix_map [difference]
+            prefix_map[difference]= 1+ prefix_map.get(difference,0)
+        return subarray_count
+        
