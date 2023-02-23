@@ -1,0 +1,27 @@
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        s1len=len(s1)
+        s2len=len(s2)
+        char1=[0]*26
+        char2=[0]*26
+        
+        for i in s1:
+            char1[ord(i)-ord("a")]+=1
+        
+        for i in range(s1len):
+            if i<s2len: char2[ord(s2[i])-ord("a")]+=1
+        left=0
+        # print(char1)
+        for i in range(s1len,s2len):
+            # print(char2)
+            if char2==char1: 
+                return True
+            
+            char2[ord(s2[left])-ord("a")]-=1
+            
+            char2[ord(s2[i])-ord("a")]+=1
+        
+            left+=1
+        if char2==char1: 
+            return True
+        return False
