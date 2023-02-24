@@ -1,0 +1,17 @@
+class Solution:
+    def scoreOfParentheses(self, s: str) -> int:
+        stack=[]
+        for bracket in s:
+            if bracket=="(":
+                stack.append(0)
+            else:
+                summ=0
+                while stack[-1]:
+                    summ+=stack.pop()*2
+                stack.pop()
+                stack.append(max(1,summ))
+        return sum(stack)
+
+
+                
+                
