@@ -1,0 +1,17 @@
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        def Pascal(n):
+            if n<=2:
+                return [1]*n
+            row_element=Pascal(n-1)
+            new_row=[1]
+            left=0
+            right=1
+            while right<len(row_element):
+                num=row_element[left]+row_element[right]
+                new_row.append(num)
+                left+=1
+                right+=1
+            new_row.append(1)
+            return new_row
+        return Pascal(rowIndex+1)
