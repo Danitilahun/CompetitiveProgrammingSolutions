@@ -1,0 +1,20 @@
+class Solution:
+    def shortestSubarray(self, nums: List[int], k: int) -> int:
+        running_sum=0
+        sum_tracker =deque()
+
+        shortest = float("inf")
+        sum_tracker.append([0,-1])
+        for right in range(len(nums)):
+            running_sum+=nums[right]
+            while sum_tracker and  running_sum - sum_tracker[0][0]>=k:
+                shortest=min(shortest,right - sum_tracker[0][1])
+                sum_tracker.popleft()
+            while sum_tracker and  running_sum<sum_tracker[-1][0]:
+                 sum_tracker.pop()
+            sum_tracker.append([running_sum,right])
+        return shortest if shortest != float("inf") else -1
+
+            
+
+
