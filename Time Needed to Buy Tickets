@@ -1,0 +1,14 @@
+class Solution:
+    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
+        tickets=[[tickets[ind],ind] for ind in range(len(tickets))]
+        tickets=deque(tickets)
+        time=0
+        while tickets:
+            time+=1
+            take=tickets.popleft()
+            take[0]-=1
+            if take[0]==0 and take[1]==k:
+                return time
+            if take[0]!=0:
+                tickets.append(take)
+            
