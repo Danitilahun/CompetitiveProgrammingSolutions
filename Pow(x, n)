@@ -1,0 +1,13 @@
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        def power(n,x):
+            if n==0:
+                return 1
+            result=power(n//2,x)
+            result*=result
+            return result*x if n%2 else result
+        ans=0
+        if n<0: ans=1/power(-n,x)
+        else: ans=power(n,x)
+        return ans  
+        
