@@ -1,0 +1,16 @@
+class Solution:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        modulo=10**9 + 7
+        stack = []
+        running_sum = 0
+        n=len(arr)
+        for ind in range(n+1):
+            while stack and (ind==n or arr[stack[-1]] > arr[ind]):
+                cur=stack.pop()
+                pre= stack[-1] if stack else -1
+                amount= (cur-pre)*(ind-cur)
+                running_sum+= arr[cur] * amount    
+            stack.append(ind)
+        return running_sum%modulo
+            
+            
