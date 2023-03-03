@@ -1,0 +1,15 @@
+class Solution:
+    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+        n=len(nums)
+        if sum(nums)==0:
+            return ((n+1)*n)//2 if goal==0 else 0
+        prefix={0:1}
+        summ=0
+        ans=0
+        for ind in range(n):
+            summ+= nums[ind]
+            diff= summ-goal
+            if diff in prefix:
+                ans+=prefix[diff]
+            prefix[summ]= 1 + prefix.get(summ,0)
+        return ans
