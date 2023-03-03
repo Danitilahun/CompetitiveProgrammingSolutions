@@ -1,0 +1,7 @@
+for _ in range(int(input())):
+    a,b=list(map(int,input().split()))
+    
+    candidate = (a+b)//4
+    ans=candidate if candidate<= min(a,b) else min(a,b)
+    print(ans)
+        
