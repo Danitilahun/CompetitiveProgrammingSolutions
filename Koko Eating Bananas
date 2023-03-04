@@ -1,0 +1,21 @@
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+
+        def check(banana_per_hour):
+            hour=0
+            for item in piles:
+                hour += ceil(item/banana_per_hour)
+            return hour
+        
+        low= 1
+        high=max(piles)
+        while low<=high:
+            mid= low + (high-low)//2
+            hour= check(mid)
+            if hour>h:
+                low=mid+1
+            else:
+                high=mid-1
+        return low
+
+
