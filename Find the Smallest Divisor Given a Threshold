@@ -1,0 +1,19 @@
+class Solution:
+    def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        def divide(divisor):
+            division_result_sum=0
+            for ind in range(len(nums)):
+                division_result_sum += ceil( nums[ind]/divisor )
+
+            return division_result_sum
+        low=1
+        high=max(nums)
+
+        while low<=high:
+            mid = ( high + low ) // 2
+            if divide(mid)> threshold :
+                low = mid + 1
+            else :
+                high = mid - 1
+        return low
+
