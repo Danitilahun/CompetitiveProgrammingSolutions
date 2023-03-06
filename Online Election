@@ -1,0 +1,29 @@
+class TopVotedCandidate:
+
+    def __init__(self, persons: List[int], times: List[int]):
+        self.presons = persons
+        self.times = times
+        self.max = 1
+        self.element = self.presons[0]
+        self.winner = {self.presons[0]: 1}
+        self.win=[-1]*(len(self.presons))
+        self.win[0]=self.presons[0]
+        for ind in range(1,len(self.presons)):
+            cur_element = self.presons[ind]
+            self.winner[cur_element] = 1 + self.winner.get(cur_element,0)
+            if self.winner[cur_element]>= self.max:
+                self.max = self.winner[cur_element]
+                self.element = cur_element 
+            self.win[ind] = self.element 
+        print(self.win)
+    def q(self, t: int) -> int:
+        low = 0 
+        high = len(self.presons)-1 
+
+        index = bisect.bisect_left(self.times,t)
+        if index == len(self.presons):
+            return self.win[-1]
+        if self.times[index]==t:
+            return self.win[index]
+        else:
+            return self.win[index-1]
