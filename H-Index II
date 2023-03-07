@@ -1,0 +1,16 @@
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        low=0
+        high = len(citations)-1
+        citations_length = len(citations)
+        citations.sort()
+        while low<=high:
+            mid = (low + high)//2
+            count = citations_length - mid 
+            if citations[mid] < count:
+                low = mid + 1
+            elif citations[mid] > count :
+                high = mid - 1
+            else:
+                return citations[mid]
+        return  citations_length-low
