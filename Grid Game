@@ -1,0 +1,12 @@
+class Solution:
+    def gridGame(self, grid: List[List[int]]) -> int:
+        col = len(grid[0])
+        above= sum(grid[0])
+        prefix=0
+        answer=float("inf")
+        for ind in range(col):
+            above -= grid[0][ind]
+            temp = max(above,prefix)
+            answer = min(answer , temp)
+            prefix += grid[1][ind]
+        return answer
