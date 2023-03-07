@@ -1,0 +1,10 @@
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+
+        def helper(cur1,cur2):
+            if not cur1 and not cur2:
+                return True
+            if not cur1 or not cur2 or cur1.val!=cur2.val:
+                return False
+            return helper(cur1.left,cur2.right) and helper(cur1.right,cur2.left)
+        return helper(root,root)
