@@ -1,0 +1,20 @@
+class Solution:
+    def balancedString(self, s: str) -> int:
+        frequancy= Counter(s)
+        left=0
+        length=len(s)
+        check= length//4
+        ans= float("inf")
+        if max(frequancy.values())==check:
+            return 0
+        for right in range(length):
+            frequancy[s[right]] -=1
+            maxi= max(frequancy.values())
+            while left<=right and maxi==check:
+                ans= min(ans,right-left+1)
+                frequancy[s[left]] +=1
+                left+=1
+                maxi= max(frequancy.values())
+        return ans
+
+        
