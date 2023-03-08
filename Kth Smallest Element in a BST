@@ -1,0 +1,25 @@
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        def helper(root,smallest, tabs = 0):
+            print("  " * tabs, smallest, root.val if root else None)
+            
+            if not root:
+                return [0, None]
+            
+            subTreeSize,answer = helper(root.left, smallest, tabs + 1)
+
+            if answer is not None:
+                return [0, answer]
+            
+            smallest += 1 + subTreeSize
+
+            if smallest == k:
+                return [0, root.val]
+
+            rSubTreeSize, answer = helper(root.right,smallest, tabs + 1)
+            smallest += rSubTreeSize
+
+            return [subTreeSize + rSubTreeSize + 1, answer]
+
+        return helper(root,0)[1]
