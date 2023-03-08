@@ -1,0 +1,22 @@
+class Solution:
+    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+
+        length=len(intervals)
+        interval= intervals.copy()
+        for ind in range(length):
+            interval[ind].append(ind)
+        interval.sort()
+
+        answer=[-1]*length
+        for ind in range(length):
+            start , end , index = interval[ind]
+            low = 0
+            high = length-1
+            while low<=high:
+                mid = (low + high)//2
+                if interval[mid][0]<end: low = mid + 1
+                else: high = mid - 1
+            answer[index] = interval[low][-1] if low != length else -1
+
+        return answer
+            
