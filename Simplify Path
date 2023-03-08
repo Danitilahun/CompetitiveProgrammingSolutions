@@ -1,0 +1,16 @@
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        path=path.split("/")
+        stack=[]
+        special={".",".."}
+        answer=""
+        for char in path:
+            if char and (char not in special): 
+                stack.append(char)
+                continue
+            if stack and char and char=="..":
+                stack.pop()
+        
+        if not stack: return "/"
+        for char in stack: answer+= "/" +char
+        return answer
