@@ -1,0 +1,14 @@
+def arrayManipulation(n, queries):
+    # Write your code here
+    arr= [0] * (n + 1)  
+    for start, end, add in queries:
+        arr[start - 1] += add
+        arr[end] -= add
+        
+    maximum = arr[0]
+    prefix=0
+    for ind in range(n+1):
+        prefix+= arr[ind]
+        maximum = max(maximum, prefix)
+        
+    return maximum
