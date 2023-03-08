@@ -1,0 +1,29 @@
+class Solution:
+    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
+
+        def computer(word):
+            frequancy= Counter(word)
+            print(frequancy)
+            char=chr(123)
+            freq=0
+            for item in frequancy:
+                if char>item:
+                    char=item
+                    freq= frequancy[item]
+            return freq
+
+        for ind in range(len(queries)):
+            queries[ind] = computer(queries[ind])
+
+        for ind in range(len(words)):
+            words[ind] = computer(words[ind])
+        
+        words.sort()
+
+        for ind in range(len(queries)):
+            index= bisect.bisect_right(words,queries[ind])
+            queries[ind] = len(words)- index
+        
+        return queries
+
+        
