@@ -1,0 +1,18 @@
+class Solution:
+    def findMode(self, root: Optional[TreeNode]) -> List[int]:
+        frequancy_counter ={}
+        maximum_holder = [0]
+        def ModeFinder(root , frequancy_counter , maximum_holder):
+            if not root:
+                return 
+            frequancy_counter[root.val] = 1 + frequancy_counter.get(root.val,0)
+            maximum_holder[0] = max(maximum_holder[0],frequancy_counter[root.val])
+            ModeFinder(root.left , frequancy_counter , maximum_holder)
+            ModeFinder(root.right , frequancy_counter , maximum_holder)
+        ModeFinder(root , frequancy_counter , maximum_holder)
+        answer=[]
+        for item in frequancy_counter:
+            if frequancy_counter[item]==maximum_holder[0]:
+                answer.append(item)
+        
+        return answer
