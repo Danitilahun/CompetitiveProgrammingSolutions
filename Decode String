@@ -1,0 +1,16 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        length = len(s)
+        def decoder(index,number,memory):
+            if index >= length or s[index]=="]":
+                if index < length and s[index]=="]":
+                    memory[0] = index
+                return ""
+            if s[index]=="[":
+                return number * decoder(index+1,0,memory) + decoder(memory[0]+1,0,memory)
+            if s[index].isdigit():
+                number = number*10 + int(s[index])
+                return decoder(index+1 , number ,memory)
+            return s[index] + decoder(index+1,number,memory)
+				
+        return decoder(0,0,[0])
