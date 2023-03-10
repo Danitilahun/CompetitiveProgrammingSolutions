@@ -1,0 +1,26 @@
+class Solution:
+    def distributeCookies(self, cookies: List[int], k: int) -> int:
+        distribution = [0]*k
+        length = len(cookies)
+        best = float("inf")
+
+        cookies.sort(reverse = True)
+
+        def fair(index):
+            nonlocal best
+
+            if index == len(cookies):
+                best = min(best, max(distribution))
+                return
+    
+            if max(distribution) >= best:
+                return
+    
+            for ind in range(k):
+                distribution[ind] += cookies[index]
+                fair(index + 1)
+                distribution[ind] -= cookies[index]
+            
+        fair(0)
+        return best
+
