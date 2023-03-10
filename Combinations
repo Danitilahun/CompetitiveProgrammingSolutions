@@ -1,0 +1,13 @@
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        answer = []
+        def combination(index,k,candidate):
+            if k==0:
+                answer.append(candidate.copy())
+                return 
+            for ind in range(index,n):
+                candidate.append(ind + 1)
+                combination(ind+1,k-1,candidate)
+                candidate.pop()
+        combination(0,k,[])
+        return answer
