@@ -1,0 +1,29 @@
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if len(t)>len(s):
+            return ""
+        t= Counter(t)
+        left = 0
+        count = 0
+        freq = {}
+        leftAns=0
+        rightAns= len(s) + 10
+        for right in range(len(s)):
+            if s[right] in t:
+                freq[s[right]] = 1 + freq.get(s[right],0)
+                if freq[s[right]] == t[s[right]]:
+                    count+=1
+            
+            while left<=right and count==len(t):
+                if (rightAns-leftAns + 1)>(right-left + 1):
+                    leftAns= left
+                    rightAns= right
+                if s[left] in t:
+                    freq[s[left]] -=1
+                    if freq[s[left]] < t[s[left]]:
+                        count-=1
+                left+=1
+            
+        return s[leftAns:rightAns+1] if rightAns < len(s) else ""
+        
+            
