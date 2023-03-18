@@ -1,0 +1,18 @@
+class Solution:
+    def splitString(self, s: str) -> bool:
+        length = len(s)
+        def checker(index,prev):
+            if index == length:
+                return True
+            for ind in range(index,length):
+                cur = int(s[index:ind+1])
+                if prev==cur+1 and checker(ind+1,cur):
+                    return True
+                if cur>prev: break
+            return False
+        
+        for ind in range(length-1):
+            prev= int(s[:ind+1])
+            if checker(ind+1,prev):
+                return True
+        return False
