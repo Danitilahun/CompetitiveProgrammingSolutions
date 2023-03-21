@@ -1,0 +1,12 @@
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        level_to_node_mapper= {}
+        def helper(root,level=1):
+            if not root:
+                return
+            level_to_node_mapper[level]= root.val
+            helper(root.left, level + 1)
+            helper(root.right, level + 1)
+        helper(root)
+        ans = [level_to_node_mapper[level] for level in level_to_node_mapper]
+        return ans
