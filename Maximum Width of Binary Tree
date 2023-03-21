@@ -1,0 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        ans = 1
+        def change(root):
+            nonlocal ans
+            newRoot= root
+            queue= deque([root])
+            root.val = 1
+            while queue:
+                n=len(queue)
+                for _ in range(n):
+                    if queue[-1].left is not None:
+                        queue.appendleft(queue[-1].left)
+                        queue[-1].left.val = 2*queue[-1].val
+                    if queue[-1].right is not None:
+                        queue.appendleft(queue[-1].right)
+                        queue[-1].right.val = 2*queue[-1].val + 1
+                    queue.pop()
+                if queue: 
+                    ans = max( ans , queue[0].val - queue[-1].val + 1)
+        change(root)
+        return ans
