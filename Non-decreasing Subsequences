@@ -1,0 +1,18 @@
+class Solution:
+    def findSubsequences(self, nums: List[int]) -> List[List[int]]:
+        answer =[]
+        def helper(index,candidate):
+            if index == len(nums):
+                cur = [candidate[ind][0] for ind in range(len(candidate))]
+                if len(candidate)>=2 and cur not in answer:
+                    answer.append(cur)
+                return
+            if not candidate or  nums[index]>=candidate[-1][0]:
+                 candidate.append([nums[index],index])
+            helper(index+1,candidate)
+            if candidate and candidate[-1][1]==index:
+                 candidate.pop()
+            helper(index+1,candidate)
+        helper(0,[])
+        return answer
+
