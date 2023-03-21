@@ -1,0 +1,27 @@
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+        ans = 0
+        length = len(arr)
+        def backtrack(ind,conc=[]):
+            nonlocal ans
+            if ind >= length:
+                if conc: ans = max(ans, len(conc[-1][0]))
+                return
+            if len(Counter(arr[ind])) == len(arr[ind]):
+                if  not conc:
+                    conc.append([arr[ind],ind])
+                else:
+                    check = True
+                    last = Counter(conc[-1][0])
+                    for ele in arr[ind]:
+                        if ele in last:
+                            check= False
+                            break
+                    if check:
+                        conc.append([conc[-1][0]+arr[ind],ind])
+            backtrack(ind+1,conc)
+            if conc and conc[-1][1] == ind:
+                conc.pop()
+            backtrack(ind+1 , conc)
+        backtrack(0)
+        return ans
