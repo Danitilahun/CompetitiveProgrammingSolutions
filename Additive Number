@@ -1,0 +1,29 @@
+class Solution:
+    def isAdditiveNumber(self, num: str) -> bool:
+        length = len(num)
+        if length <= 2: 
+            return False
+        def checker(index,prev,prev_pre):
+            if index == length:
+                return True
+            for ind in range(index,length):
+                if ind!=index and num[index:ind+1][0]=="0":
+                    return False
+                cur = int(num[index:ind+1])
+                if prev + prev_pre == cur and checker(ind+1,cur,prev):
+                    return True
+                if cur>prev + prev_pre: break
+            return False
+        
+        for ind in range(length-2):
+            if ind!= 0 and num[:ind+1][0]=="0":
+                return False
+            prev_pre= int(num[:ind+1])
+            for j in range(ind+1,length-1):
+                if j != ind +1  and  num[ind+1:j+1][0]=="0":
+                    break
+                prev = int(num[ind+1:j+1])
+                if checker(j+1,prev,prev_pre):
+                    return True
+        return False
+
