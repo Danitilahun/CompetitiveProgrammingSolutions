@@ -1,0 +1,37 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists:
+            return None
+        def merge(left,right):
+            newhead=ListNode()
+            tail=newhead
+            while left and right:
+                if left.val < right.val:
+                    tail.next=ListNode(left.val)
+                    left=left.next
+                else:
+                    tail.next=ListNode(right.val)
+                    right=right.next
+                tail=tail.next
+            if left:
+                tail.next=left
+            if right:
+                tail.next=right
+            return newhead.next
+
+        def mergeSort(left,right):
+            if left == right:
+                return lists[left]
+            mid = (left + right)//2
+            leftpart = mergeSort(left , mid)
+            rightpart = mergeSort(mid+1 , right)
+            return merge(leftpart,rightpart)
+        
+        length = len(lists)-1
+        head = mergeSort(0,length)
+        return head
