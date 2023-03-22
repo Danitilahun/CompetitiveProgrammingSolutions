@@ -1,0 +1,21 @@
+class Solution:
+    def maximumRequests(self, n: int, requests: List[List[int]]) -> int:
+        length = len(requests)
+        maximum_achievable = 0
+        def helper(ind,dictionary = defaultdict(int) , achievable=0):
+            nonlocal maximum_achievable
+            if ind == length:
+                if any(dictionary[ele]!=0 for ele in dictionary):
+                    return
+                maximum_achievable = max(maximum_achievable , achievable)
+                return 
+            # Not take part 
+            helper(ind + 1 , dictionary , achievable)
+            dictionary[requests[ind][0]]-=1
+            dictionary[requests[ind][1]] += 1
+            # Take part
+            helper(ind + 1 , dictionary ,achievable + 1)
+            dictionary[requests[ind][0]] += 1
+            dictionary[requests[ind][1]] -= 1
+        helper(0)
+        return maximum_achievable
