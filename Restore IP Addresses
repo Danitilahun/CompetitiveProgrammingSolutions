@@ -1,0 +1,33 @@
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+       
+        if len(s)>12:
+            return []
+        length =  len(s)
+        answer = []
+        def generator(index , start, candidate):
+            if start==3:
+                print("in",candidate , s[index:] )
+                if int(s[index:]) > 255 or (len(s[index:])>1 and s[index:][0]=="0"): return
+                check = any( int(ele) > 255 for ele in candidate)
+                if check: return 
+
+                candidate.append(s[index:])
+                temp = ".".join(candidate)
+                answer.append(temp)
+                candidate.pop()
+                return
+            for ind in range(index,length-1):
+
+                cur= s[index:ind + 1]
+                if ind!= index and cur[0]=="0":
+                    return
+                if int(cur) > 255:
+                    return
+                candidate.append(cur)
+                generator(ind+1, start + 1 , candidate)
+                candidate.pop()
+        generator(0,0,[])
+        return answer
+            
+                
