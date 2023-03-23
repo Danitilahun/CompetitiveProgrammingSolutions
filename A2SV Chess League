@@ -1,0 +1,58 @@
+lgth,k = map(int,input().split())
+ratings = list(map(int,input().split()))
+ 
+def recursion(left,right):
+    if right - left == 1:
+        if abs(ratings[left] - ratings[right]) > k:
+            if ratings[right] > ratings[left]:
+                return [right]
+            return [left]
+ 
+        return [left,right] if ratings[right] >= ratings[left] else [right,left]
+ 
+    mdl = left + (right-left)// 2
+ 
+    left_rec = recursion(left,mdl)
+    right_rec = recursion(mdl+1,right)
+ 
+    lft_index = 0
+    rgt_index = 0
+ 
+    if ratings[left_rec[0]] > ratings[right_rec[0]]:
+        while rgt_index < len(right_rec):
+            if ratings[left_rec[0]] - ratings[right_rec[rgt_index]]  > k:
+                rgt_index += 1
+            else:
+                break
+    else:
+        while lft_index < len(left_rec):
+            if ratings[right_rec[0]] - ratings[left_rec[lft_index]]  > k:
+                lft_index += 1
+            else:
+                break
+ 
+    answer = []
+    while lft_index < len(left_rec) and rgt_index < len(right_rec):
+        if ratings[left_rec[lft_index]] > ratings[right_rec[rgt_index]]:
+            answer.append(right_rec[rgt_index])
+            rgt_index += 1
+        else:
+            answer.append(left_rec[lft_index])
+            lft_index += 1
+ 
+    answer.extend(left_rec[lft_index:])
+    answer.extend(right_rec[rgt_index:])
+ 
+    return answer
+ 
+ 
+ 
+ans=recursion(0,len(ratings)-1)
+ans.sort()
+for ind in range(len(ans)):
+    ans[ind]+=1
+print(*ans)
+    
+    
+    
+
