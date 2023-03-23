@@ -1,0 +1,45 @@
+import sys
+input = sys.stdin.readline
+
+def integerInput():
+    return(int(input()))
+def ListInput():
+    return(list(map(int,input().split())))
+def StringArray():
+    s = input()
+    return(list(s[:len(s) - 1]))
+def SpaceSeparatedInt():
+    return(map(int,input().split()))
+
+def helper(left,right):
+    global swaps
+    if left==right:
+        return [0]
+    if right - left == 1:
+        if arr[right]<arr[left]:
+            swaps+=1
+            return [right,left]
+        return [left,right]
+    mid = left + (right-left)// 2
+
+    left_part = helper(left,mid)
+    if not left_part: return []
+    right_part = helper(mid+1,right)
+    if not right_part: return []
+    if arr[left_part[0]] > arr[right_part[0]]:
+        swaps+=1
+        temp = left_part
+        left_part= right_part
+        right_part = temp
+    for ind in left_part:
+        if arr[ind]>arr[right_part[0]]:
+            return []
+
+    return left_part + right_part
+
+for _ in range(integerInput()):
+    n= integerInput()
+    swaps = 0
+    arr = ListInput()
+    ans = helper(0,len(arr)-1)
+    print(swaps if ans else -1)
