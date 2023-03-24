@@ -1,0 +1,17 @@
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        ind = 0
+        length = len(nums)
+        count = 0
+        ans = []
+        while ind<length:
+            pos = nums[ind] - 1
+            if nums[pos] == nums[ind]:
+                ind+=1
+            elif pos != ind:
+                nums[pos],nums[ind] = nums[ind] , nums[pos]
+            else:
+                ind+=1
+        for ind in range(length):
+            if ind!=nums[ind]-1:
+                return nums[ind]
