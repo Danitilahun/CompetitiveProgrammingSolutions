@@ -1,6 +1,20 @@
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        n= len(nums)
-        total = (n*(n+1))//2
-        given = sum(nums)
-        return total - given
+        nums.append(len(nums)+1)
+        ind = 0
+        length = len(nums)
+        count = 0
+        ans = []
+        while ind<length:
+            pos = nums[ind]
+            if pos == length:
+                ind+=1
+                continue
+            if pos != ind:
+                nums[pos],nums[ind] = nums[ind] , nums[pos]
+            else:
+                ind+=1
+    
+        for ind in range(length):
+            if ind!=nums[ind]:
+                return ind
