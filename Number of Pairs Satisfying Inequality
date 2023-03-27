@@ -1,0 +1,44 @@
+class Solution:
+    def numberOfPairs(self, nums1: List[int], nums2: List[int], diff: int) -> int:
+        nums=[]
+        answer = 0
+        for ind in range(len(nums1)):
+            nums.append(nums1[ind]-nums2[ind])
+        nums = [1,0,4,8,2]
+        def helper(left,right):
+            nonlocal answer
+            if left==right:
+                return [left]
+            mid = left + (right-left)// 2
+            left_part = helper(left,mid)
+            right_part = helper(mid+1,right)
+
+            left_ptr = 0
+            right_ptr = 0
+
+            while left_ptr < len(left_part) and right_ptr<len(right_part):
+                if nums[left_part[left_ptr]] > nums[right_part[right_ptr]] +diff:
+                    answer += left_ptr
+                    right_ptr+=1
+                else:
+                    left_ptr+=1
+            while right_ptr< len(right_part):
+                answer += left_ptr
+                right_ptr+=1
+            
+            left_ptr = 0
+            right_ptr = 0
+            ans = []
+            while left_ptr < len(left_part) and right_ptr<len(right_part):
+                if nums[left_part[left_ptr]]> nums[right_part[right_ptr]]:
+                    ans.append(right_part[right_ptr])
+                    right_ptr+=1
+                else:
+                    ans.append(left_part[left_ptr])
+                    left_ptr+=1
+
+            ans.extend(left_part[left_ptr:])
+            ans.extend(right_part[right_ptr:])
+            return ans
+        helper(0,len(nums)-1)
+        return answer
