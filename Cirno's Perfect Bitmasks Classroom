@@ -1,0 +1,21 @@
+
+import math
+for _ in range(int(input())):
+    n= int(input())
+    num = math.log(n,2)
+
+    if int(num)==num and not n%2:
+        print(n+1)
+    else:
+        ind = -1
+        getanswer=0
+        while n and not getanswer:
+            if n&1:
+                getanswer=True
+            n>>=1
+            ind+=1
+        if n:
+            print(2**ind)
+        else:
+            print(2**ind + 2**(ind+1))
+    
