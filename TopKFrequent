@@ -1,0 +1,23 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+
+        frequency = Counter(nums)
+        nums = list(frequency.keys())
+        length = len(nums)
+        def quickselect(start,end):
+            pivot = start
+            write=  start+1
+            for read in range(start, end):
+                if frequency[nums[pivot]] > frequency[nums[read]]:
+                    nums[write], nums[read] = nums[read] ,nums[write]
+                    write +=1
+            nums[write-1], nums[pivot] = nums[pivot] ,nums[write-1]
+            index = write-1
+            if length-index == k:
+                return nums[index]
+            elif length-index > k:
+                return quickselect(index+1,end)
+            else:
+                return quickselect(pivot,index)
+        quickselect(0,len(nums))
+        return nums[-k:]
