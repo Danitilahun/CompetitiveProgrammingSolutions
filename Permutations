@@ -1,0 +1,19 @@
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        visited=0
+        def helper(index,n,res):
+            nonlocal visited
+            if index==n:
+                ans.append(res.copy())
+                return
+            for i in range(n):
+                if (visited>> i)&1 == 0 :
+                    visited |= (1<<i)
+                    res.append(nums[i])
+                    helper(index+1,n,res)
+                    visited &=~(1<<i)
+                    res.pop()
+        
+        ans=[]
+        helper(0,len(nums),[])
+        return ans
