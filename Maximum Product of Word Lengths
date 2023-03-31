@@ -1,0 +1,17 @@
+class Solution:
+    def maxProduct(self, words: List[str]) -> int:
+        mapp={}
+        for ind in range(len(words)):
+            visited=0
+            for char in words[ind]:
+                visited |= (1<<(ord(char)-97))
+            mapp[words[ind]] = visited
+        answer = 0
+        for index in range(len(words)):
+            temp = mapp[words[index]]
+            for ind2 in range(index+1,len(words)):
+                temp2 = mapp[words[ind2]]
+                if not (temp & temp2):
+                    answer = max(answer , len(words[index]*len(words[ind2])))
+        return answer
+                
