@@ -1,0 +1,11 @@
+a,b = map(int,input().split())
+def gcd(a,b):
+    if b==0:
+        return a
+    return gcd(b,a%b)
+g_cd= gcd(a,b)
+for num in range(a+1,b):
+    g_cd= gcd(num,num-1)
+    if g_cd==1:
+        break
+print(g_cd)
