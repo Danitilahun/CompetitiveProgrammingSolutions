@@ -1,0 +1,18 @@
+class Solution:
+    def subarrayGCD(self, nums: List[int], k: int) -> int:
+        def gcd(a,b):
+            if not b:
+                return a
+            return gcd(b,a%b)
+        count = 0
+        for start in range(len(nums)):
+            prev = nums[start]
+            for end in range(start,len(nums)):
+                curGcd= gcd(prev,nums[end])
+                if curGcd == k:
+                    count+=1
+                prev = curGcd
+        return count
+
+
+        
