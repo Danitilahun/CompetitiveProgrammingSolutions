@@ -1,0 +1,23 @@
+class Solution:
+    def countMaxOrSubsets(self, nums: List[int]) -> int:
+        length = len(nums)
+        ans=[]
+        def subset(index,sub=[]):
+            if index == length:
+                ans.append(sub.copy())
+                return
+            subset(index+1,sub)
+            sub.append(nums[index])
+            subset(index+1,sub)
+            sub.pop()
+        subset(0)
+        freq = {}
+        maxi = 0
+        for ind in range(len(ans)):
+            answer = 0
+            for num in ans[ind]:
+                answer |= num
+            maxi = max(maxi,answer)
+            freq[answer] = 1 + freq.get(answer,0)
+        return freq[maxi]
+        
