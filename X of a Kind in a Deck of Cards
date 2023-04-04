@@ -1,0 +1,17 @@
+class Solution:
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        if len(deck)==1:
+            return False
+        freq = Counter(deck)
+        uniqueCount = list(freq.values())
+
+        def gcd(a,b):
+            if b==0:
+                return a
+            return gcd(b,a%b)
+        for ind in range(1,len(uniqueCount)):
+            g_cd= gcd(uniqueCount[ind],uniqueCount[ind-1])
+            if g_cd==1:
+                return False
+            uniqueCount[ind]=g_cd
+        return True
