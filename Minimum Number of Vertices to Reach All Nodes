@@ -1,0 +1,16 @@
+class Solution(object):
+    def findSmallestSetOfVertices(self, n, edges):
+
+        graph = defaultdict(list)
+        for fro,to in edges:
+            graph[fro].append(to)
+        print(graph)
+        visited = set()
+        for key in graph:
+            for adj in graph[key]:
+                visited.add(adj)
+        ans = []
+        for ind in range(n):
+            if ind not in visited:
+                ans.append(ind)
+        return ans
