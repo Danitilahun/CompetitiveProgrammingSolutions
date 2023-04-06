@@ -1,0 +1,17 @@
+class Solution(object):
+    def findCenter(self, edges):
+        """
+        :type edges: List[List[int]]
+        :rtype: int
+        """
+
+        graph = defaultdict(set)
+        n= 0
+        for node1,node2 in edges:
+            n= max(n,node1,node2)
+            graph[node2].add(node1)
+            graph[node1].add(node2)
+        for num in graph:
+            if len(graph[num])== n-1:
+                return num
+        
