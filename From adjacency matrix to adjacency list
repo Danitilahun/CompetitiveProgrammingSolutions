@@ -1,0 +1,15 @@
+from collections import defaultdict
+n = int(input())
+graph = []
+
+for _ in range(n):
+    row = list(map(int, input().split()))
+    graph.append(row)
+adj = defaultdict(list)
+
+for row in range(n):
+    for col in range(n):
+        if graph[row][col]:
+            adj[row+1].append(col+1)
+for ind in range(n):
+    print(len(adj[ind+1]),*adj[ind+1])
