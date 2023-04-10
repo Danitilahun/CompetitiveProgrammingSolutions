@@ -1,0 +1,31 @@
+class Solution(object):
+    def maxAreaOfIsland(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+
+        DIR = [(-1,0),(1,0),(0,-1),(0,1)]
+        rows = len(grid)
+        cols = len(grid[0])
+        inbound = lambda row,col: -1<row<rows and -1<col<cols
+        def dfs(row,col,counter):
+            if not inbound(row,col):
+                return 
+            for move in DIR:
+                co = col + move[0]
+                ro = row + move[1]
+                if (ro,co) not in visited and inbound(ro,co) and grid[ro][co]:
+                    visited.add((ro,co))
+                    counter[0]+=1
+                    dfs(ro,co,counter)
+        count = 0
+        visited = set()
+        for r in range(rows):
+            for c in range(cols):
+                if (r,c) not in visited and grid[r][c]:
+                    visited.add((r,c))
+                    counter = [1]
+                    dfs(r,c,counter)
+                    count = max(count,counter[0])
+        return count
