@@ -1,0 +1,23 @@
+class Solution(object):
+    def allPathsSourceTarget(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        n= len(graph)
+        ans = []
+        def dfs(cur,path):
+            if cur == n-1:
+                # print(path)
+                ans.append(path[:])
+                return
+            for adj in graph[cur]:
+                path.append(adj)
+                dfs(adj,path)
+                path.pop()
+        path=[0]
+        dfs(0,path)
+        return ans
+
+
+
