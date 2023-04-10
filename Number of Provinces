@@ -1,0 +1,21 @@
+class Solution(object):
+    def findCircleNum(self, isConnected):
+        n = len(isConnected[0])
+        def dfs(city):
+            visited.add(city)
+            for neighbour in graph[city]:
+                if neighbour not in visited:
+                    dfs(neighbour)
+        graph = {row+1 : set() for row in range(n)}
+        for row in range(n):
+            for col in range(n):
+                if isConnected[row][col] and row!=col:
+                    graph[row+1].add(col+1)
+
+        count = 0
+        visited = set()
+        for r in range(n):
+            if r+1 not in visited:
+                count+=1
+                dfs(r+1)
+        return count
