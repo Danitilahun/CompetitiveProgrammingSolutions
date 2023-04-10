@@ -1,0 +1,21 @@
+class Solution(object):
+    def floodFill(self, image, sr, sc, color):
+        DIR = [(-1,0),(1,0),(0,-1),(0,1)]
+        rows = len(image)
+        cols = len(image[0])
+        inbound = lambda row,col: -1<row<rows and -1<col<cols
+        def dfs(row,col):
+            visited.add((row,col))
+            if not inbound(row,col):
+                return 
+            for move in DIR:
+                co = col + move[0]
+                ro = row + move[1]
+                if (ro,co) not in visited and inbound(ro,co) and image[ro][co]==first_color:
+                    image[ro][co] = color
+                    dfs(ro,co)
+        visited = set()
+        first_color = image[sr][sc]
+        image[sr][sc]= color
+        dfs(sr,sc)
+        return image
