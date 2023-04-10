@@ -1,0 +1,11 @@
+n = int(input())
+isConnected= []
+for ind in range(n):
+    row = list(map(int,input().split()))
+    isConnected.append(row)
+count=0
+for row in range(n):
+    for col in range(n):
+        print(isConnected[row][col])
+        count += isConnected[row][col]
+print(count//2)
