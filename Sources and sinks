@@ -1,0 +1,31 @@
+n = int(input())
+graph = []
+
+for _ in range(n):
+    row = list(map(int, input().split()))
+    graph.append(row)
+source = []
+sink = []
+
+def CheckSink(ind):
+    if 1 not in graph[ind]:
+        return True
+    return False
+def CheckSource(ind):
+    for row in range(n):
+        if graph[row][ind]:
+            return False
+    return True
+
+for ind in range(n):
+    if CheckSink(ind) and CheckSource(ind):
+        source.append(ind+1)
+        sink.append(ind+1)
+    elif CheckSink(ind):
+        sink.append(ind+1)
+    elif CheckSource(ind):
+        source.append(ind+1)
+source.sort()   
+sink.sort()
+print(len(source), *source)
+print(len(sink), *sink)
