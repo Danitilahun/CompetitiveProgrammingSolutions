@@ -1,0 +1,14 @@
+class Solution(object):
+    def maximalNetworkRank(self, n, roads):
+        graph = defaultdict(set)
+        for node1, node2 in roads:
+            graph[node1].add(node2)
+            graph[node2].add(node1)
+        ans = 0
+        for node1 in range(n):
+            for node2 in range(n):
+                if node1!= node2:
+                    new  = len(graph[node1]) + len(graph[node2])
+                    new = new - 1 if node2 in graph[node1] else new
+                    ans = max(new,ans)
+        return ans
