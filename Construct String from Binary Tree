@@ -1,0 +1,13 @@
+class Solution(object):
+    def tree2str(self, root):
+        def dfs(root):
+            if not root:
+                return ""
+            left =  dfs(root.left) 
+            right = dfs(root.right)
+            if not left and not right:
+                return str(root.val)
+            right = "(" + right  + ")" if right else ""
+            new = str(root.val) + "(" + left + ")" + right
+            return  new
+        return dfs(root)
