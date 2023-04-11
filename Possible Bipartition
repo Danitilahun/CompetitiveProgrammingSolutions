@@ -1,0 +1,28 @@
+class Solution(object):
+    def possibleBipartition(self, n, dislikes):
+        
+        graph = defaultdict(list)
+        for node1, node2 in dislikes:
+            graph[node1].append(node2)
+            graph[node2].append(node1)
+        group = [-1]*n
+        # print(graph)
+        def dfs(node,color =0 ):
+            stack=[[node,color]]
+            group[node-1] = color
+            while stack:
+                node,color = stack.pop()
+                for adj in graph[node]:
+
+                    if group[adj-1] == -1:
+                        group[adj-1] = 1 - color
+                        stack.append([adj,1-color])
+                    elif group[adj-1] == color:
+                        return False
+            return True
+        for key in graph.keys():
+            if group[key-1]==-1 and not dfs(key):
+                return False
+        return True
+
+        
