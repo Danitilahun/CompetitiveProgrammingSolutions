@@ -1,0 +1,16 @@
+
+class Solution(object):
+    def maxDepth(self, root):
+        max_Depth = [0]
+        if not root:
+            return 0
+        def dfs(root,maxDepth,depth=1):
+            if not root:
+                max_Depth[0] = max(max_Depth[0],depth)
+                return 
+            for node in root.children:
+                dfs(node,max_Depth,depth+1)
+            max_Depth[0] = max(max_Depth[0],depth)
+        dfs(root,max_Depth)
+        return max_Depth[0]
+            
