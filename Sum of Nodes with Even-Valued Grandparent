@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumEvenGrandparent(self, root: TreeNode) -> int:
+        mapp = []
+        answer=0
+        def helper(root):
+            nonlocal answer
+            if not root:
+                return
+            mapp.append(root.val)
+            helper(root.left)  
+            helper(root.right)  
+            if len(mapp)>2:
+                grandParent = mapp[-3]
+                if not grandParent%2:
+                    answer += root.val
+            mapp.pop()
+        helper(root)
+        return answer
+
+            
