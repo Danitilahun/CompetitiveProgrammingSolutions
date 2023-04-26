@@ -1,0 +1,29 @@
+class Solution:
+    def maximumDetonation(self, bombs: List[List[int]]) -> int:
+        n = len(bombs)
+        graph = defaultdict(list)
+
+
+        def isInbound(i,j):
+            dis = (pow(bombs[j][0]-bombs[i][0],2) + pow(bombs[j][1]-bombs[i][1],2))**0.5
+            return dis<=bombs[i][2]
+        
+        for i in range(n):
+            for j in range(n):
+                if i!=j and isInbound(i,j):
+                    graph[i].append(j)
+        def dfs(node):
+            visited.add(node)
+            for adj in graph[node]:
+                if adj not in visited:
+                    dfs(adj)
+        maxDepth = 1
+        keys = list(graph.keys())
+        keys.sort()
+        for key in keys:
+            visited = set()
+            dfs(key)
+            maxDepth = max(maxDepth,len(visited))
+        return maxDepth 
+
+        
