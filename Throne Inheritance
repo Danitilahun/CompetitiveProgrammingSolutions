@@ -1,0 +1,23 @@
+class ThroneInheritance:
+
+    def __init__(self, kingName: str):
+        self.graph = defaultdict(list)
+        self.kingName = kingName
+        self.dead = set()
+    def birth(self, parentName: str, childName: str) -> None:
+        self.graph[parentName].append(childName)
+    def death(self, name: str) -> None:
+        self.dead.add(name)
+    def getInheritanceOrder(self) -> List[str]:
+        visited = set()
+        ans = []
+        def dfs(person):
+            visited.add(person)
+            if person not in self.dead:
+                ans.append(person)
+            for adj in self.graph[person]:
+                if adj not in visited:
+                    dfs(adj)
+        dfs(self.kingName)
+        return ans
+
