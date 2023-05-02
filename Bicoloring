@@ -1,0 +1,43 @@
+from collections import defaultdict
+from functools import lru_cache
+import threading
+from sys import stdin,stdout,setrecursionlimit
+
+setrecursionlimit(1 << 30)
+threading.stack_size(1 << 27)
+
+
+def main():
+    
+    while True:
+        n= int(input())
+        if not n:
+            break
+        l = int(input())
+        graph = defaultdict(list)
+        
+        for _ in range(l):
+            u, v = map(int, input().split())
+            graph[u].append(v)
+            graph[v].append(u)
+ 
+        def dfs(node, color):
+
+            visited[node] = color
+            for neghibour in graph[node]:
+                if neghibour in visited:
+                    if visited[neghibour] == color:
+                        return False
+                else:
+                    if not dfs(neghibour, 1 - color):
+                        return False
+            
+            return True
+        
+        visited = {}
+        res  = dfs(u, 1)
+        print("BICOLOURABLE." if res else "NOT BICOLOURABLE.")
+
+main_thread = threading.Thread(target=main)
+main_thread.start()
+main_thread.join()
