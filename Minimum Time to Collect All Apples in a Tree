@@ -1,0 +1,23 @@
+class Solution:
+    def minTime(self, n: int, edges: List[List[int]], hasApple: List[bool]) -> int:
+        graph = defaultdict(list)
+
+        for x, y in edges:
+            graph[x].append(y)
+            graph[y].append(x)
+    
+        def dfs(val,parent):
+            Minimum_Time = 0
+            for neighbour in graph[val]:
+                if neighbour != parent:
+                    Minimum_Time += dfs(neighbour,val)
+            if Minimum_Time > 0:
+                return Minimum_Time + 2 if val > 0 else Minimum_Time
+            if hasApple[val] and val > 0:
+                return 2
+            return 0
+
+        Minimum_Time = dfs(0,-1)
+
+        return Minimum_Time
+        
