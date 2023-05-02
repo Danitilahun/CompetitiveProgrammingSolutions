@@ -1,0 +1,30 @@
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        n= len(grid)
+        if grid[0][0] == 1:
+            return -1
+        queue = deque([[0,0,1]])
+        DIR= [(-1,1),(1,1),(1,-1),(-1,-1),(-1,0),(1,0),(0,-1),(0,1)]
+        inbound= lambda row, col : 0 <= row < n and 0 <= col < n
+        count=0
+        visited = set()
+        visited.add((0,0))
+        ok = False
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                row,col,level = queue.popleft()
+                if row==n-1 and col==n-1:
+                    ok = True
+                    break
+                for d in DIR:
+                    n_row = row + d[1]
+                    n_col = col + d[0]
+                    if inbound(n_row,n_col) and grid[n_row][n_col]==0 and (n_row,n_col) not in visited:
+                        
+                        visited.add((n_row,n_col))
+                        queue.append([n_row,n_col,level+1])
+
+            if ok:
+                break
+        return level if ok else -1
