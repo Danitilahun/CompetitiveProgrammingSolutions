@@ -1,0 +1,18 @@
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        visited = set()
+        graph = {}
+        n= len(rooms)
+        for ind in range(n):
+            graph[ind] = rooms[ind]
+        visited = set()
+        def bfs(startNode):
+            queue = deque([startNode])
+            while queue:
+                curVertex= queue.popleft()
+                visited.add(curVertex)
+                for vertex in graph[curVertex]:
+                    if vertex not in visited:
+                        queue.append(vertex)
+        bfs(0)
+        return True if len(visited) == n else False
