@@ -1,0 +1,29 @@
+#User function Template for python3
+
+class Solution:
+    def heapify(self,arr, n, i):
+        largest = i
+        l = 2 * i + 1    
+        r = 2 * i + 2
+
+        if l < n and arr[largest] < arr[l]:
+            largest = l
+     
+        if r < n and arr[largest] < arr[r]:
+            largest = r
+    
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]
+            self.heapify(arr, n, largest)
+            
+    def HeapSort(self, arr, n):
+
+        N = len(arr)
+        for i in range(N//2 - 1, -1, -1):
+            self.heapify(arr, N, i)
+     
+        for i in range(N-1, -1, -1):
+            arr[i], arr[0] = arr[0], arr[i]
+            self.heapify(arr, i, 0)
+        
+        
