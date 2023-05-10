@@ -1,0 +1,29 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        graph = defaultdict(list)
+        
+        for course, precondition in prerequisites:
+            graph[precondition].append(course)
+        
+        def Cycle(course):
+            if seen[course] == 2:
+                return False
+            if seen[course] == 1:
+                return True
+            
+            seen[course] = 1
+            
+            for neighbor in graph[course]:
+                if Cycle(neighbor):
+                    return True
+            
+            seen[course] = 2
+            return False
+        
+        seen = [0 for _ in range(numCourses)]
+
+        for course in range(numCourses):
+            if Cycle(course):
+                return False
+
+        return True
