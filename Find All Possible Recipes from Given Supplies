@@ -1,0 +1,27 @@
+class Solution:
+    def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
+        graph = defaultdict(list)
+        incoming = defaultdict(int)
+        queue = deque()
+        order = []
+        supplies = set(supplies)
+        recipe_s = set(recipes)
+        for i in range(len(recipes)):
+            for item in ingredients[i]:
+                    graph[item].append(recipes[i])
+                    # Count incoming edges for each node
+                    incoming[recipes[i]] += 1
+    
+        # # Enqueue all nodes with no incoming edges
+        queue = deque(supplies)
+        while queue:
+            recipe = queue.popleft()
+            if recipe in recipe_s:
+                order.append(recipe)
+            for neighbor in graph[recipe]:
+                incoming[neighbor] -= 1
+                if incoming[neighbor] == 0:
+                    queue.append(neighbor)
+            
+        
+        return order
