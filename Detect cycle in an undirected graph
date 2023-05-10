@@ -1,0 +1,22 @@
+from typing import List
+class Solution:
+    #Function to detect cycle in an undirected graph.
+	def isCycle(self, V: int, adj: List[List[int]]) -> bool:
+		#Code here
+		visited = set()
+		def dfs(node_ind,parent):
+		    
+		    if node_ind in visited:
+		        return True
+		    visited.add(node_ind)
+		    for neigh in adj[node_ind]:
+		        if neigh == parent:
+		            continue
+		        if dfs(neigh,node_ind):
+		            return True
+		    return False
+		for node_ind in range(len(adj)):
+		    if node_ind not in visited:
+		        if dfs(node_ind,-1):
+		            return 1
+		return 0
