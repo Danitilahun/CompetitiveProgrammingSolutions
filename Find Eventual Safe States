@@ -1,0 +1,25 @@
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        seen = [0]* len(graph)
+        answer = []
+        def Cycle(node):
+            if seen[node] == 2:
+                return False
+            if seen[node] == 1:
+                return True
+            
+            seen[node] = 1
+            
+            for neighbor in graph[node]:
+                if Cycle(neighbor):
+                    return True
+            
+            seen[node] = 2
+            return False
+
+        for idx in range(len(graph)):
+            Cycle(idx)
+        for idx in range(len(graph)):
+            if seen[idx]==2:
+                answer.append(idx)
+        return answer
