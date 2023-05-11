@@ -1,0 +1,35 @@
+#User function Template for python3
+
+class Solution:
+    def findOrder(self,alien_dict, N, K):
+        adj = {chr(97+idx): set() for idx in range(K)}
+
+        for i in range(N - 1):
+            word_one, word_two = alien_dict[i], alien_dict[i + 1]
+            length = min(len(word_one), len(word_two))
+            for j in range(length):
+                if word_one[j] != word_two[j]:
+                    adj[word_one[j]].add(word_two[j])
+                    break
+
+        visited = {}
+        res = []
+
+        def dfs(char):
+            if char in visited:
+                return visited[char]
+
+            visited[char] = True
+
+            for neighChar in adj[char]:
+                if dfs(neighChar):
+                    return True
+
+            visited[char] = False
+            res.append(char)
+
+        for char in adj:
+            if dfs(char):
+                return []
+        res.reverse()
+        return res
