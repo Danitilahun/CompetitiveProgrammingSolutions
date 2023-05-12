@@ -1,0 +1,30 @@
+class Solution:
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+
+        seen = [0]* n
+        path={idx: set() for idx in range(n)}
+        incoming = [0]* n
+        answer= []
+        graph={idx: [] for idx in range(n)}
+        for fro_m , to in edges:
+            incoming[to]+=1
+            graph[fro_m].append(to)
+        queue = deque()
+        for idx in range(n):
+            if incoming[idx] == 0:
+                queue.append(idx)
+        while queue:
+            node = queue.popleft()
+            for adj in graph[node]:
+                path[adj].add(node)
+                path[adj].update(path[node])
+                incoming[adj] -= 1
+                if incoming[adj] == 0:
+                    queue.append(adj)
+                    
+                   
+        for i in range(n):
+            x = sorted(list(path[i]))
+            answer.append(x)
+        return answer
+
