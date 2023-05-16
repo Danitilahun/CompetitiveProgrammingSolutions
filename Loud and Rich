@@ -1,0 +1,22 @@
+class Solution:
+    def loudAndRich(self, richer: List[List[int]], quiet: List[int]) -> List[int]:
+        n = len(quiet)
+        graph = {i:[] for i in range(n)}
+
+        for u,v in richer:
+            graph[v].append(u)
+
+        def dfs(node):
+            leastQuiet = node
+            for i in graph[node]:
+                if answer[i] == -1:
+                    dfs(i)
+                leastQuiet = min(leastQuiet, answer[i], key = lambda person : quiet[person])
+            answer[node] = leastQuiet
+
+        answer = [-1]*n
+        for ind in range(n):
+            if answer[ind]==-1:
+                dfs(ind)
+        return answer
+
