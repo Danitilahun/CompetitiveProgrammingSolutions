@@ -1,0 +1,21 @@
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        if source == destination:
+            return True
+
+        child_parent = {i:i for i in range(n)}
+        
+        def union(p,q):
+            p = find(p)
+            q = find(q)
+            if p != q:
+                child_parent[p] = q
+        
+        def find(p):
+            while p != child_parent[p]:
+                p = child_parent[p]
+            return p
+        
+        for u,v in edges:
+            union(u,v)
+        return find(source) == find(destination)
