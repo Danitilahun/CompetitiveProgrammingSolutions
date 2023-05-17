@@ -1,0 +1,29 @@
+class Solution:
+    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
+
+        seen = [0]* numCourses
+        path={idx: set() for idx in range(numCourses)}
+        incoming = [0]* numCourses
+        answer= []
+
+        graph={idx: [] for idx in range(numCourses)}
+        for fro_m , to in prerequisites:
+            incoming[to]+=1
+            graph[fro_m].append(to)
+        queue = deque()
+        for idx in range(numCourses):
+            if incoming[idx] == 0:
+                queue.append(idx)
+        while queue:
+            node = queue.popleft()
+            for adj in graph[node]:
+                path[adj].add(node)
+                path[adj].update(path[node])
+                incoming[adj] -= 1
+                if incoming[adj] == 0:
+                    queue.append(adj)
+        answer= []
+        for u,v in queries:
+            answer.append(u in path[v])
+        return answer
+
