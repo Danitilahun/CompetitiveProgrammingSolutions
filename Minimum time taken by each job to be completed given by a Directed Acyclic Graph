@@ -1,0 +1,48 @@
+from typing import List
+
+
+from typing import List
+
+
+class Solution:
+
+    def minimumTime(self, n : int,m : int, edges : List[List[int]]) -> int:
+        # code here
+        import collections
+        seen = [0]* n
+        incoming = [0]* n
+        graph={idx: [] for idx in range(n)}
+        
+        for fro_m , to in edges:
+            incoming[to-1]+=1
+            graph[fro_m-1].append(to-1)
+        
+        queue = collections.deque()
+        
+        for idx in range(n):
+            if incoming[idx] == 0:
+                queue.append(idx)
+
+        time = 1
+        answer =  [0]* n
+        while queue:
+
+            size  = len(queue)
+            for i in range(size):
+                node = queue.popleft()
+                answer[node] = time
+                for adj in graph[node]:
+                    incoming[adj] -= 1
+                    
+                    if incoming[adj] == 0:
+                        queue.append(adj)
+            time += 1
+        ans = ""
+        for ind in range(n):
+            if ind!=n-1:
+                ans += str(answer[ind]) + " "
+            else:
+                ans+= str(answer[ind])
+        return ans
+            
+        
