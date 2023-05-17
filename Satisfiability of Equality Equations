@@ -1,0 +1,30 @@
+class Solution:
+    def equationsPossible(self, equations: List[str]) -> bool:
+        groups ={chr(97+i):chr(97+i) for i in range(26)}
+        def find(child):
+            while groups[child] != child:
+                child = groups[child]
+            return child
+        
+        def union(p,q):
+            p = find(p)
+            q = find(q)
+            if q != p:
+                groups[p] = groups[q]
+            return p,q
+        
+        check = []
+        for equation in equations:
+            exp = list(equation)
+            p = exp[0]
+            q = exp[-1]
+            if exp[1] == "=":
+                union(p,q)
+            else:
+                check.append([p,q])
+        for p,q in check:
+            a = find(p)
+            b= find(q)
+            if a==b:
+                return False
+        return True
