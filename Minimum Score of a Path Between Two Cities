@@ -1,0 +1,27 @@
+class Solution:
+    def minScore(self, n: int, roads: List[List[int]]) -> int:
+        path = [idx for idx in range(n+1)]
+
+        def find(city):
+            if path[city] != city:
+                path[city] = find(path[city])
+            return path[city]
+
+        def union(city1, city2):
+            city1 = find(city1)
+            city2 = find(city2)
+            if city1 != city2:
+                path[city1] = city2
+
+        for city1, city2, distance in roads:
+            union(city1, city2)
+
+        answer = float("inf")
+        
+        for city1, city2, distance in roads:
+            if find(n) == find(city1):
+                answer = min(distance,answer)
+            if find(n) == find(city2):
+                answer = min(distance,answer)
+
+        return answer
