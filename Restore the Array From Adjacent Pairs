@@ -1,0 +1,41 @@
+class Solution:
+    def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
+        
+        if not adjacentPairs:
+            return []
+        
+        graph = defaultdict(set)
+        incoming = defaultdict(int)
+
+        for u,v in adjacentPairs:
+            graph[u].add(v)
+            graph[v].add(u)
+
+            incoming[u] += 1
+            incoming[v] += 1
+        
+        nums = deque()
+        
+        begin = True
+        count_begin = 0
+        queue = deque()
+        for num in incoming:
+            if incoming[num] == 1:
+                queue.append(num)
+                
+        while queue:
+            num = queue.popleft()
+            
+            for adj in graph[num]:
+                incoming[adj] -= 1
+                if incoming[adj] == 1:
+                    queue.append(adj)
+            if begin:
+                count_begin += 1
+                nums.appendleft(num)
+                begin = False
+            else:
+                nums.append(num)
+                begin = True
+        nums = list(nums)[:count_begin][::-1] + list(nums)[count_begin:][::-1]
+        return nums
