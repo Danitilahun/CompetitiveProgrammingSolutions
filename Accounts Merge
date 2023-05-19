@@ -1,0 +1,38 @@
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        name = {}
+        n = len(accounts)
+        rep ={i : i for i in range(n)}
+
+        def find(node):
+            if rep[node] != node:
+                rep[node] = find(rep[node])
+            return rep[node]
+        
+        def union(x, y):
+            
+            xrep = find(x)
+            yrep = find(y)
+            
+            if xrep!=yrep:
+                rep[yrep] = xrep
+        
+        for idx in range(n):
+            for account in accounts[idx][1:]:
+                if account in rep:
+                    union(rep[account],idx)
+                rep[account] = idx
+
+        ans = defaultdict(list)
+        for key in rep:
+            parent = find(key)
+            if isinstance(key,str):
+                ans[parent].append(key)
+        # print(ans)
+        answer = []
+        for key in ans:
+            answer.append([accounts[key][0]] + sorted(ans[key]))
+        return answer
+
+       
+            
