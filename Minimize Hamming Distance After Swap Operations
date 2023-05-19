@@ -1,0 +1,49 @@
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -> int:
+
+        if not allowedSwaps:
+            hammer = 0
+            for i in range(len(source)):
+                if source[i] != target[i]:
+                    hammer +=1 
+            return hammer
+        rep =  {i:i for i in range(len(source))}
+
+        def find(node):
+            if rep[node] != node:
+                rep[node] = find(rep[node])
+            return rep[node]
+
+        def union(node1, node2):
+            node1 = find(node1)
+            node2 = find(node2)
+            if node1 != node2:
+                rep[node1] = node2
+        
+        for node1, node2 in allowedSwaps:
+            union(node1,node2)
+
+
+        answer = defaultdict(list)
+        
+    
+        groups = defaultdict(list)
+        for node in range(len(source)):
+            parent = find(node)
+            groups[parent].append(node)
+
+
+        ans = 0
+        for group in groups.values():
+            c1 = Counter()
+            c2 = Counter()
+            for i in group:
+                c1[source[i]] += 1
+                c2[target[i]] += 1
+
+            for num in c1:
+                ans += max(0, c1[num] - c2[num])
+        return ans
+
+
+        
