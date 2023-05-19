@@ -1,0 +1,38 @@
+class Solution:
+    def smallestStringWithSwaps(self, s: str, pairs: List[List[int]]) -> str:
+        letter = {i: i for i in range(len(s))}
+
+        def find(x):
+            if letter[x] != x:
+                letter[x] = find(letter[x])
+            return letter[x]
+
+        def union(x, y):
+            p = find(x)
+            q = find(y)
+
+            if p!=q:
+                letter[p] = q
+        
+        for u,v in pairs:
+            union(u,v)
+        
+        for key in letter:
+            find(key)
+
+        answer = {i: [] for i in range(len(s))}
+
+        for char in letter:
+            answer[letter[char]].append(char)
+        
+        for char in letter:
+            answer[char].sort(key = lambda x: s[x],reverse = True)
+
+        ans = ""
+
+# 
+        for idx in range(len(s)):
+            parent = find(idx)
+            ans += s[answer[parent].pop()]
+        return ans
+         
