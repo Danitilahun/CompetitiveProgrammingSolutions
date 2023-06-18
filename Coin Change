@@ -1,0 +1,23 @@
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        memo = {}
+        
+        for i in coins:
+            memo[i] = 1
+        
+        def helper(amount):
+            if amount == 0:
+                return 0
+            if amount in memo:
+                return memo[amount]
+            
+            minimum_coin = float("inf")
+            for i in coins:
+                if i<=amount:
+                    minimum_coin = min(minimum_coin,1 + helper(amount-i))
+            memo[amount] = minimum_coin
+            return memo[amount]
+
+        minimum_coin = helper(amount)
+
+        return minimum_coin if minimum_coin!=float("inf") else -1
