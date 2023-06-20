@@ -1,0 +1,17 @@
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp ={}
+        dp[(m-1,n-1)] = 1   
+        def DPHelper(index1,index2):
+            if index1>=m or index2>=n :
+                return 0
+           
+            if (index1,index2) in dp:
+                return dp[(index1,index2)]
+
+            right = DPHelper(index1+1,index2)
+            down = DPHelper(index1,index2+1)
+            
+            dp[(index1,index2)] = right + down
+            return dp[(index1,index2)]
+        return DPHelper(0,0)
