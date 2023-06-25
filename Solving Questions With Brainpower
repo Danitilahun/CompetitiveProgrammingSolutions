@@ -1,0 +1,13 @@
+class Solution:
+    def mostPoints(self, questions: List[List[int]]) -> int:
+        length = len(questions)
+        memo = [-1 for i in range(length+1)]        
+        def DPhelper(idx):
+            if idx >= length:
+                return 0
+            if memo[idx] != -1:
+                return memo[idx]
+
+            memo[idx] = max(questions[idx][0] + DPhelper(idx + questions[idx][1] + 1), DPhelper(idx + 1))
+            return memo[idx] 
+        return DPhelper(0)
