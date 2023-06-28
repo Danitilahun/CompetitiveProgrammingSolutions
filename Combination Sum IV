@@ -1,0 +1,15 @@
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        memo = [-1 for _ in range((target+1))]
+        def dp(Summation):
+            if Summation == target:
+                return 1
+            if memo[Summation] != -1:
+                return memo[Summation]
+                
+            memo[Summation] = 0
+            for num in nums:
+                if num + Summation <= target:
+                    memo[Summation] += dp(Summation + num)
+            return memo[Summation]
+        return dp(0)
