@@ -1,0 +1,19 @@
+class Solution:
+    def champagneTower(self, poured: int, query_row: int, query_glass: int) -> float:
+        memo = {}
+        def DPhelper(val, query_row, query_glass):
+            if query_row==0 and query_glass==0:
+                return val
+            if query_glass<0 or query_glass>query_row:
+                return 0
+            if (query_row,query_glass) in memo:
+                return memo[(query_row,query_glass)]
+
+            left = max((DPhelper(val,query_row-1,query_glass-1)-1)/2,float(0))
+            right = max((DPhelper(val,query_row-1,query_glass)-1)/2,float(0))
+            
+            memo[(query_row,query_glass)] = left+right
+            return memo[(query_row,query_glass)]
+        
+        
+        return min(DPhelper(poured,query_row,query_glass),1)
