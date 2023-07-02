@@ -1,0 +1,16 @@
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        n = len(prices)
+        mem = {}
+        def DPhelper(idx, prices,buy):
+            if idx >= n:
+                return 0
+            if (idx, buy) in mem:
+                return mem[(idx, buy)]
+            if not buy:
+                cur = max((DPhelper(idx + 1, prices,True) - prices[idx]),DPhelper(idx + 1, prices,False))
+            else:
+                cur = max((DPhelper(idx + 1, prices,False) + prices[idx] - fee), DPhelper(idx + 1, prices,True))
+            mem[(idx, buy)] = cur
+            return cur
+        return DPhelper(0, prices,False)
