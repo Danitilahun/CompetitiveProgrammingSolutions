@@ -1,0 +1,8 @@
+class Solution:
+    def minimizeArrayValue(self, nums: List[int]) -> int:
+        answer = nums[0]
+        summation = nums[0]
+        for idx in range(1,len(nums)):
+            summation += nums[idx]
+            answer = max(answer, math.ceil(summation / (idx+1)))
+        return answer
