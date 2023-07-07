@@ -1,0 +1,24 @@
+class Solution:
+    def maxScoreSightseeingPair(self, values: List[int]) -> int:
+
+        def DPhelper(idx,cnt):
+            if idx>=len(values):
+                return -999999
+
+            if memo[idx][cnt] != -1:
+                return memo[idx][cnt]
+
+            if cnt == 0:
+                pick = values[idx] + idx+ DPhelper(idx+1,cnt+1)
+                notPick = DPhelper(idx+1,cnt)
+
+            if cnt == 1:
+                pick = values[idx] - idx
+                notPick = DPhelper(idx+1,cnt)
+
+            memo[idx][cnt] = max(notPick,pick)
+            return memo[idx][cnt]
+
+        n = len(values)
+        memo = [[-1]*(3) for _ in range(n+1)]
+        return DPhelper(0,0)
