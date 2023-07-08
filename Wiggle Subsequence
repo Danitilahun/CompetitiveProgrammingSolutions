@@ -1,0 +1,29 @@
+class Solution:
+    def wiggleMaxLength(self, nums: List[int]) -> int:
+       
+        def DPhelper(nums, index, isPrevPositive, memo):
+
+            if index >= len(nums) - 1:
+                return 1
+
+            if memo[index] != -1:
+                return memo[index]
+
+            wiggle_up = float("-inf")
+            wiggle_down = float("-inf")
+
+            if isPrevPositive:
+                if nums[index + 1] < nums[index]:
+                    wiggle_up = 1 + DPhelper(nums, index + 1, False, memo)
+                else:
+                    wiggle_up = DPhelper(nums, index + 1, isPrevPositive, memo)
+            else:
+                if nums[index + 1] > nums[index]:
+                    wiggle_down = 1 + DPhelper(nums, index + 1, True, memo)
+                else:
+                    wiggle_down = DPhelper(nums, index + 1, isPrevPositive, memo)
+            memo[index] = max(wiggle_up, wiggle_down)
+            return memo[index]
+        memo = [-1 for _ in range(len(nums) + 1)]
+        return max(DPhelper(nums, 0, False, memo.copy()), DPhelper(nums, 0, True, memo.copy()))
+    
