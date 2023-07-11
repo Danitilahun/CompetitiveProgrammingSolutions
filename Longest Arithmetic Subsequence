@@ -1,0 +1,21 @@
+class Solution:
+    def longestArithSeqLength(self, nums: List[int]) -> int:
+        
+        memo = {}
+        length = len(nums)
+        max_length = 2
+
+        for i in range(length):
+            memo[i] = {}
+
+            for j in range(i):
+                diff = nums[i] - nums[j]
+                
+                if diff in memo[j]:
+                    memo[i][diff] = memo[j][diff] + 1
+                else:
+                    memo[i][diff] = 2
+
+                max_length = max(max_length, memo[i][diff])
+        
+        return max_length
