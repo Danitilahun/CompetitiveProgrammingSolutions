@@ -1,0 +1,40 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        graph = defaultdict(list)
+        
+        def build_graph(node, parent):
+            if node and parent:
+                graph[node.val].append(parent.val)
+                graph[parent.val].append(node.val)
+            if node.left:
+                build_graph(node.left, node)
+            if node.right:
+                build_graph(node.right, node)
+
+        build_graph(root, None)
+
+        visited = set([target.val])
+        result = []
+        queue = [(target.val, 0)]
+        
+        while queue:
+            vertex, distance = queue.pop(0)
+            
+            if distance == k:
+                result.append(vertex)
+                continue
+            
+            for neighbor in graph[vertex]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append((neighbor, distance + 1))
+        
+        return result
+
+     
