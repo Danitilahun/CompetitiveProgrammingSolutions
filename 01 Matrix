@@ -1,0 +1,21 @@
+class Solution:
+	def updateMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
+		Row, Col = len(matrix), len(matrix[0])
+		queue = []
+		directions = [[0, +1], [0, -1], [1, 0], [-1, 0]]
+
+		for i in range(Row):
+			for j in range(Col):
+				if matrix[i][j] == 0:
+					queue.append((i, j)) 
+				else:
+					matrix[i][j] = "*"
+
+		for r, c in queue:
+			for dr, dc in directions:
+				row = r + dr
+				col = c + dc
+				if 0 <= row < Row and 0 <= col < Col and matrix[row][col] == "*":
+					matrix[row][col] = matrix[r][c] + 1
+					queue.append((row, col))
+		return matrix
