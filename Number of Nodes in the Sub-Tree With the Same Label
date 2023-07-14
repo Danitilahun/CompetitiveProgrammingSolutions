@@ -1,0 +1,25 @@
+class Solution:
+    def countSubTrees(self, n: int, edges: List[List[int]], labels: str) -> List[int]:
+        adjList = {i: [] for i in range(n)}
+        for edge in edges:
+            adjList[edge[0]].append(edge[1])
+            adjList[edge[1]].append(edge[0])
+
+        ans = [0] * n
+        traversed = [0] * n
+
+        def dfs(node):
+            if traversed[node]:
+                return {}
+            traversed[node] = 1
+
+            labelCount = {labels[node]: 1}
+            for child in adjList[node]:
+                labelCount = dict(Counter(labelCount) + Counter(dfs(child)))
+
+            ans[node] = labelCount[labels[node]]
+
+            return labelCount
+
+        dfs(0)
+        return ans
