@@ -1,0 +1,34 @@
+class Solution:
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+
+        visited = set()
+        n = len(board)
+        cell = [0] * (n ** 2 + 1)
+        columns = list(range(0, n))
+        k = 1
+        
+        for i in range(n-1, -1, -1):
+            for j in columns:
+                cell[k] = (i, j)
+                k += 1
+            columns.reverse()
+
+        q = deque([(1, 0)]) 
+        visited.add(1)
+        while q:
+            start, moves = q.popleft()
+            
+            for i in range(1, 7):
+                new_start = start + i
+                r, c = cell[new_start]
+                
+                if board[r][c] != -1:
+                    new_start = board[r][c]
+                
+                if new_start == n * n:
+                    return moves + 1
+                
+                if new_start not in visited:
+                    visited.add(new_start)
+                    q.append((new_start, moves+1))
+        return -1
