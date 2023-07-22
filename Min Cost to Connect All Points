@@ -1,0 +1,39 @@
+class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        points = [tuple(p) for p in points]
+        point_size = {p: 1 for p in points}
+        point_root = {p: p for p in points}
+
+        def find_root(point):
+            if point_root[point] != point:
+                point_root[point] = find_root(point_root[point])
+            return point_root[point]
+
+        def union_points(point_a, point_b):
+            root_a = find_root(point_a)
+            root_b = find_root(point_b)
+            if root_a == root_b:
+                return
+            if point_size[root_a] > point_size[root_b]:
+                point_root[root_b] = root_a
+                point_size[root_a] += point_size[root_b]
+            else:
+                point_root[root_a] = root_b
+                point_size[root_b] += point_size[root_a]
+
+        def calculate_distance(edge):
+            point_a, point_b = edge
+            dist = 0
+            for a, b in zip(point_a, point_b):
+                dist += abs(a - b)
+            return dist
+
+        edges = sorted(combinations(points, 2), key=calculate_distance)
+
+        total_cost = 0
+        for point_x, point_y in edges:
+            if find_root(point_x) != find_root(point_y):
+                union_points(point_x, point_y)
+                total_cost += calculate_distance((point_x, point_y))
+
+        return total_cost
