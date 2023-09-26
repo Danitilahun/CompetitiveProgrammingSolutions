@@ -1,0 +1,32 @@
+class Solution:
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
+
+        pairs = list(zip(scores, ages))
+
+        sorted_pairs = sorted(pairs, key=lambda x: (x[1], x[0]))
+
+        sorted_scores = [pair[0] for pair in sorted_pairs]
+
+        sorted_ages = sorted(ages)
+
+        n= len(ages)
+        memo = [[0]*n]*(n+1)
+
+
+        def dp(index , prev):
+            if index >= n:
+                return 0
+            
+            if memo[index][prev+1]:
+                return memo[index][prev+1]
+
+            score = 0 + dp(index + 1 , prev)
+
+            if (prev== -1 or sorted_scores[index] >= sorted_scores[prev]):
+                score = max(score , sorted_scores[index] +  dp(index+1 , index))
+
+            memo[index][prev+1] = score
+
+            return score
+        
+        return dp(0,-1)
