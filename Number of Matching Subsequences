@@ -1,0 +1,46 @@
+class TrieNode:
+    
+    def __init__(self):
+        self.children = [None] * 26
+        self.isEnd = False
+        self.wordCount = 0
+        
+class Trie:
+    
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def insert(self, word):
+        node = self.root
+        for char in word:
+            charIndex = ord(char) - ord('a')
+            if not node.children[charIndex]:
+                node.children[charIndex] = TrieNode()
+            node = node.children[charIndex]
+        node.isEnd = True
+        node.wordCount += 1  
+    
+    def findIndex(self, word, start, charIndex):
+        for i in range(start, len(word)):
+            if ord(word[i]) - ord('a') == charIndex:
+                return i
+        return -1
+    
+    def dfs(self, node, word, start):
+        count = 0
+        for i in range(26):
+            if node.children[i]:
+                child = node.children[i]
+                index = self.findIndex(word, start, i)
+                if index != -1:                    
+                    if child.isEnd:
+                        count += child.wordCount
+                    count += self.dfs(child, word, index + 1)
+        return count
+    
+class Solution:
+    def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+        trie = Trie()
+        for word in words:
+            trie.insert(word)
+        return trie.dfs(trie.root, s, 0)
