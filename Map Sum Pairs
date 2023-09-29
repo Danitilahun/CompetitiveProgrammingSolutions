@@ -1,0 +1,31 @@
+class TrieNode:
+    def __init__(self):
+        self.children = collections.defaultdict(TrieNode)
+        self.value = 0
+
+
+class MapSum:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, key: str, val: int) -> None:
+        curr = self.root
+
+        for c in key:
+            curr = curr.children[c]
+        curr.value = val
+
+    def sum(self, prefix: str) -> int:
+        curr = self.root
+        for c in prefix:
+            if c not in curr.children:
+                return 0
+            curr = curr.children[c]
+
+        def dfs(curr: TrieNode):
+            total = curr.value
+            for child in curr.children:
+                total += dfs(curr.children[child])
+            return total
+
+        return dfs(curr)
