@@ -1,0 +1,51 @@
+class TrieNode:
+    def __init__(self):
+        self.value = None
+        self.children = {}
+        self.end = False
+    def get_child(self, char):
+        return self.children[char] if char in self.children else {}
+
+    def set_child(self, char, child_node):
+        self.children[char] = child_node
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def insert(self, word):
+        node = self.root
+        for char in word:
+            if not node.get_child(char):
+                node.set_child(char, TrieNode())
+            node = node.get_child(char)
+            node.value = char
+        node.end = True
+        
+
+class Solution:
+    def longestWord(self, words: List[str]) -> str:
+        
+        trie = Trie()
+        for word in words:
+            trie.insert(word)
+        
+        Rootnode = trie.root
+        
+        def dfs(node , s ):
+            nonlocal word
+            if not node or not node.end:
+                return
+
+            if len(s) > len(word) or (len(s) == len(word) and "".join(s) < word):
+                word = "".join(s)
+
+            for child in node.children:
+                s.append(child)
+                dfs(node.children[child] , s)
+                s.pop()
+                
+        word = ""
+        for child in Rootnode.children:
+            dfs(Rootnode.children[child], [child])
+        return word
