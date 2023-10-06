@@ -1,0 +1,22 @@
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        graph = [[] for i in range(n)]
+        for frm, to, cost in flights:
+            graph[frm].append((cost, to))
+        
+        heap = [(0, 0, src)]
+        heapq.heapify(heap)
+        costs_and_stops = [(float("infinity"), float("infinity"))] * n
+        costs_and_stops[src] = (0, 0)
+        
+        while heap:
+            cost, stops, x = heapq.heappop(heap)
+            if x == dst:
+                return cost
+            if stops <= k:
+                for next_cost, next_stop in graph[x]:
+                    if costs_and_stops[next_stop][0] > next_cost + cost or costs_and_stops[next_stop][1] > stops + 1:
+                        costs_and_stops[next_stop] = (next_cost + cost, stops + 1)
+                        heapq.heappush(heap, (cost + next_cost, stops + 1, next_stop))
+        
+        return -1
