@@ -1,0 +1,17 @@
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        stack = [[s[0],1]]
+
+        for char in s[1:]:
+            if stack and  stack[-1][0] == char:
+                stack.append([char,stack[-1][1] + 1])
+            else:
+                stack.append([char,1])
+            if stack and stack[-1][1] == k:
+                for _ in range(k):
+                    stack.pop()
+        ans = ""
+        for pair in stack:
+            ans += pair[0]
+        
+        return ans
