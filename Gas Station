@@ -1,0 +1,15 @@
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        
+        if sum(gas)<sum(cost):
+            return -1
+        start=0
+        balance=0
+        for index in range(len(gas)):
+            balance+= gas[index]-cost[index]
+            if balance<0:
+                start=index+1
+                balance=0
+        return start
+
+        
