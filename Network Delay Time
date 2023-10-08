@@ -1,0 +1,33 @@
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+
+        def dijkstra(graph, start):
+            visited = set()
+            distance = {node: float("inf") for node in range(len(graph))}
+            distance[start] = 0
+            priority_queue = [(0, start)]
+            
+            while priority_queue:
+                dist, current_node = heapq.heappop(priority_queue)
+                if current_node in visited:
+                    continue
+                visited.add(current_node)
+                for neighbor, weight in graph[current_node]:
+                    if neighbor not in visited:
+                        new_distance = distance[current_node] + weight
+                        if new_distance < distance[neighbor]:
+                            distance[neighbor] = new_distance
+                            heapq.heappush(priority_queue, (new_distance, neighbor))
+            return distance
+        
+
+        adjacency_list = [[] for _ in range(n)]
+
+        for edge in times:
+            u, v, weight = edge
+            adjacency_list[u-1].append((v-1, weight))
+        print(adjacency_list)
+        ans = dijkstra(adjacency_list, k-1)
+        print(ans)
+        min_time = max([ans[key] for key in ans if key != k-1])
+        return min_time if min_time != float("inf") else -1
