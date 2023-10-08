@@ -1,0 +1,35 @@
+class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start_node: int, end_node: int) -> float:
+    
+        def dijkstra(graph, start):
+            visited = set()
+            distance = {node: 0 for node in range(len(graph))}
+            distance[start] = 1
+            priority_queue = [(0, start)]
+            
+            while priority_queue:
+                dist, current_node = heapq.heappop(priority_queue)
+                if current_node in visited:
+                    continue
+                visited.add(current_node)
+                for neighbor, weight in graph[current_node]:
+                    if neighbor not in visited:
+                        new_distance = distance[current_node] * weight
+                        if new_distance > distance[neighbor]:
+                            distance[neighbor] = new_distance
+                            heapq.heappush(priority_queue, (-new_distance, neighbor))
+            return distance
+
+
+        graph = [[] for _ in range(n)]
+
+        for i in range(len(edges)):
+            u, v = edges[i]
+            weight = succProb[i]
+            graph[u].append((v, weight))
+            graph[v].append((u, weight))
+
+        
+        ans = dijkstra(graph , start_node)
+
+        return ans[end_node] 
