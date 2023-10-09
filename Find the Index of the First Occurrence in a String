@@ -1,0 +1,30 @@
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        
+        lps= [0 for _ in range(len(needle))]
+        prei , curi = 0 , 1
+
+        while curi < len(needle):
+            if needle[prei] == needle[curi]:
+                lps[curi] = prei+1
+                prei += 1
+                curi += 1
+            elif prei == 0:
+                curi += 1
+            else:
+                prei = lps[prei-1]
+        
+        p_i , t_i = 0 , 0
+
+        while p_i < len(haystack):
+            if haystack[p_i] == needle[t_i]:
+                p_i += 1
+                t_i += 1
+            elif t_i == 0:
+                p_i += 1
+            else:
+                t_i = lps[t_i - 1]
+            
+            if t_i == len(needle):
+                return p_i - t_i
+        return -1
