@@ -1,0 +1,31 @@
+class Solution:
+    def validIPAddress(self, queryIP: str) -> str:
+        def isIpv4(s):
+            try:
+                return str(int(s))==s and 0<=int(s)<=255
+            except:
+                return False
+            
+        def isIpv6(s):
+            if len(s)>4:
+                return False
+            if re.match("\W",s):
+                return False
+            try:
+                int(s,16)
+                return True
+            except:
+                return False
+            
+        ip4=queryIP.split(".")
+        ip6=queryIP.split(":")
+        
+        if len(ip4)==4 and all(isIpv4(n) for n in ip4):
+            return "IPv4"
+        if len(ip6)==8 and all(isIpv6(n) for n in ip6):
+            return "IPv6"
+        
+        return "Neither"
+
+
+        
