@@ -1,0 +1,23 @@
+class Solution:
+    def numTeams(self, rating: List[int]) -> int:
+        def countTeams(rating, condition):
+            dp = [[1, 0, 0] for _ in range(len(rating))]
+
+            for i in range(1, len(rating)):
+                for j in range(i):
+                    if condition(rating[i], rating[j]):
+                        dp[i][1] += dp[j][0]
+                        dp[i][2] += dp[j][1]
+
+            return sum(dp[i][2] for i in range(len(dp)))
+
+        def ratingGreater(a, b):
+            return a > b
+
+        def ratingLess(a, b):
+            return a < b
+
+        a = countTeams(rating, ratingGreater)
+        b = countTeams(rating, ratingLess)
+
+        return a + b
