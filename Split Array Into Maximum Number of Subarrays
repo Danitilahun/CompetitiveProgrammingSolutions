@@ -1,0 +1,13 @@
+class Solution:
+    def maxSubarrays(self, nums: List[int]) -> int:
+        count = 0
+        accumulator = 0
+        
+        for x in nums:
+            if accumulator:
+                accumulator &= x
+            else:
+                accumulator = x
+                count += 1
+        
+        return max(1, count - int(accumulator != 0))
