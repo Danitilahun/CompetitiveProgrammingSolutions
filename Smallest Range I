@@ -1,0 +1,8 @@
+class Solution:
+    def smallestRangeI(self, nums: List[int], k: int) -> int:
+
+        initial_range = max(nums) - min(nums)
+        
+        max_possible_range = initial_range - 2 * k
+        
+        return max(0, max_possible_range)
