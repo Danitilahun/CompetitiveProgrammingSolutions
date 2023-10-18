@@ -1,0 +1,28 @@
+class Solution:
+    def calculate(self, s: str) -> int:
+        
+        stack = []
+        op = {"+","-","*", "/"}
+        sign = "+"
+        s= s.replace(" " , "")
+        ind = 0
+        
+        while ind < len(s):
+            num = ""
+            while ind < len(s) and  s[ind] not in op:
+                num += s[ind]
+                ind += 1
+            if sign == "+":
+                stack.append(int(num))
+            elif sign == "-":
+                stack.append(-int(num))
+            elif sign == "*":
+                ans = stack.pop()
+                stack.append(ans*int(num))
+            elif sign == "/":
+                ans = stack.pop()
+                stack.append(int(ans / int(num)))
+            if ind < len(s) : sign = s[ind]
+            ind += 1
+        
+        return sum(stack)
