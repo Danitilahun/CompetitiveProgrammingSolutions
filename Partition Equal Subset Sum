@@ -1,0 +1,35 @@
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+
+        agg = sum(nums)
+        n = len(nums)
+        if agg %2:
+            return False
+        memo = {}
+
+        def dp(ind , s):
+
+            if s == 0:
+                memo[(ind,s)] = True
+                return True
+            elif s < 0 :
+                return False
+
+            if ind >= n:
+                return False
+
+            if (ind, s) in memo:
+                return memo[(ind,s)]
+                
+            s -= nums[ind]
+            if dp(ind+1 , s):
+                return True
+
+            s += nums[ind]
+            if dp(ind+1 , s):
+                return True
+            memo[(ind,s)] = False
+            return memo[(ind,s)]
+        return dp(0, agg//2)
+
+
